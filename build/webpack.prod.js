@@ -1,7 +1,10 @@
 'use strict';
 
-const baseConfig = require('./webpack.base');
+const base = require('./webpack.base');
 
-baseConfig.mode = 'production';
+base.mode = 'production';
 
-module.exports = baseConfig;
+module.exports = Object.assign({}, base);
+		
+
+			

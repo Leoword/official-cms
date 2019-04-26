@@ -1,19 +1,14 @@
-'use strict';
+const webpackBase = require('./webpack.base');
+const merge = require('webpack-merge');
+const config = require('../config.json');
 
-const baseConfig = require('./webpack.base');
-
-const devConfig = Object.assign(baseConfig, {
+module.exports = merge(webpackBase, {
 	mode: 'development',
-	devtool: 'inline-source-map',
 	devServer: {
-		port: 8000,
-		host: '0.0.0.0', //localhost or ip
 		proxy: {
-			'/api' : '' //base to project's router
-		}
+			'/api': config.proxy,
+			// '/api': 'http://localhost:8080'
+		},
+		host: '0.0.0.0'
 	}
 });
-
-devConfig.output.publicPath = '' ; // project's prefix
-
-module.exports = devConfig;
