@@ -3,7 +3,7 @@
 		<b-button 
 			v-if="hasSub" 
 			v-b-toggle.menu-item
-			class="parent p-3 border-bottom border-left border-secondary" 
+			class="parent p-3 border-bottom border-left" 
 			block
 			:href="url" 
 			variant="light"
@@ -14,7 +14,7 @@
 					v-for="item in subItems" 
 					:key="item.name" 
 					:href="item.url"
-					class="border-left border-secondary"
+					class="border-left text-center"
 				>{{ item.name }}</b-list-group-item>
 			</b-list-group>
 		</b-collapse>
@@ -22,7 +22,7 @@
 		<b-button 
 		v-if="hasSub === false" 
 		block 
-		class="parent p-3 border-bottom border-left border-secondary" 
+		class="parent p-3 border-bottom border-left" 
 		variant="light"
 		:href="url">{{ name }}</b-button>
 	</div>
@@ -53,8 +53,7 @@ export default {
 		},
 		url: {
 			type: String,
-			default: '#',
-			validator: (val) => (val === '#' || regMap.isUrl.test(val))
+			default: '#'
 		},
 		subItems: {
 			type: Array,

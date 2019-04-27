@@ -1,274 +1,211 @@
 <template>
-	<b-container fluid>
-		<h1>文件上传管理</h1>
-		<b-card title="文件上传">
-			<b-form ref="uploadFile">
-				<b-row>
-						<b-col 
-						class="custom-col" 
-						cols="auto"
-					>
-						<b-form-group
-							label="文件类型"
-							label-for="file-category"
-							>
-							<b-form-select
-								id="file-category"
-								v-model="selected"
-								:options="categoryOptions"
-								></b-form-select>
-						</b-form-group>
-					</b-col>
-					<b-col 
-						class="custom-col" 
-						cols="4"
-					>
-						<b-form-group 
-							label="浏览文件"
-							label-for="upload"
-						>
-							<b-form-file
-								id="upload"
-								v-model="file"
-								:state="Boolean(file)"
-								placeholder="请选择文件"
-								class="mb-2"
-								size="sm"
-								/>
-						</b-form-group>
-					</b-col>
-				</b-row>
-				<b-row>
-					<b-col>
-						<b-form-group 
-							label="文件描述"
-							label-for="file-comment"
-						>
-							<b-form-textarea
-								id="file-comment"
-								v-model="uploadfile.comment"
-								placeholder="请输入文件描述"
-								rows="3"
-								></b-form-textarea>
-						</b-form-group>
-					</b-col>
-				</b-row>
-				<b-row>
-					<b-col>
-						<b-button 
-							class="mr-2" 
-							@click="file = null">重置</b-button>
-						<b-button class="mr-2" @click="onSubmit">上传</b-button>
-					</b-col>
-				</b-row>
-			</b-form>
-		</b-card>
-		<b-row>
-			<b-col cols="3">
-				<b-form-group 
-					label="关键字"
-					label-for="key"
-				>
-					<b-form-input
-						v-model="key" 
-						size="sm"
-						class="mb-2"
-					></b-form-input>
-				</b-form-group>
-			</b-col>
-			<b-col 
-				class="mt-4" 
-				cols="2"
-			>
-				<b-button class="mr-2" @click="onReset">重置</b-button>
-				<b-button class="mr-2">查询</b-button>
-			</b-col>
-			<b-col 
-				class="mt-4" 
-				cols="4"
-			>
-				<b-pagination
-					v-model="curPage"
-					:per-page="perPage"
-					:total-rows="rows"				
-				></b-pagination>
-			</b-col>
-		</b-row>
-		<detail-modal
-			item-name="已上传文件详情"
-			is-upload-file
-		></detail-modal>
+	<b-container fluid id="file">
+		<h1 class="mb-5">文件上传管理</h1>
+		<div class="clearfix float-left" style="width: 40%">
+			<div class="clearfix">
+				<b-form-file
+					v-model="file" style="display: inline; width: auto"
+					:state="Boolean(file)"
+					placeholder="请选择文件"
+					size="sm" plain
+				/>
+				<b-button 
+					class="mr-2" size="sm"
+					@click="getBlob">预览</b-button>
+				<b-button 
+					class="mr-2" size="sm"
+					@click="resize">裁剪</b-button>
+				<b-button class="mr-2" size="sm" @click="onSubmit">上传</b-button>
+			</div>
+			<div class="file-preview mt-3">
+				<vueCropper
+					ref="cropper"
+					:img="option.img"
+					:outputSize="option.size"
+					:outputType="option.outputType"
+					:canMove="false"
+					:autoCropWidth="200"
+					:autoCropHeight="200"
+					:centerBox="option.centerBox"
+				></vueCropper>
+			</div>
+		</div>
+		<div class="ml-3 float-right" style="width: 56%">
+			<h4>文件列表</h4>
+			<div v-if="list.length !== 0">
+				<div class="clearfix">
+					<div class="float-left">
+						{{list.lengt}}
+						<b-form-select size="sm" v-model="selected" :options="typeList"></b-form-select>
+					</div>
+					<div class="float-right">
+						<b-pagination
+							size="sm"
+							v-model="currentPage"
+							:total-rows="rows"
+							:per-page="perPage"
+						></b-pagination>
+					</div>
+				</div>
+				 <b-card v-for="(file, index) in renderFileList" :key="index"
+						style="width: 23%" no-body class="float-left mr-3 my-3"
+						:img-src="`http://localhost:8081${file.url}`" img-top>
+						<b-card-text>
+							<p class="px-2 mb-0">类型：{{file.type}}</p>
+							<p class="px-2 mb-0">路径： {{file.url}}</p>
+							<p class="px-2 mb-0 text-right">
+								<i 
+									v-b-modal.delete-item
+									class="fa fa-trash fa-lg text-danger"
+									aria-hidden="true"
+									@click="deleteFile(file.id)"
+								></i>
+							</p>
+						</b-card-text>
+					</b-card>
+			</div>
+		</div>
 		<delete-modal
 			model-title="删除文件"
 			message="确认删除该文件?"
+			@ok="deleted"
 		></delete-modal>
-		<b-table 
-			id="uploaded"
-			hover
-			:items="items"
-			:current-page="curPage"
-			:fields="fields"
-			:per-page="perPage"
-		>
-			<template 
-				slot="name" 
-				slot-scope="data"
-			>
-				<b-button 
-					v-b-modal.item-detail
-					variant="link"
-				>
-					{{ data.item.name }}
-				</b-button>
-			</template>
-			<template slot="actions">
-				<i 
-					v-b-modal.delete-item
-					class="fa fa-trash fa-lg text-danger"
-					aria-hidden="true"
-					@click="deleteFile"
-				></i>
-			</template>
-		</b-table>
+		
 	</b-container>
 </template>
 
 <script>
 import DeleteModal from '../utils/DeleteModal.vue';
-import DetailModal from '../utils/DetailModal.vue';
+
+import { VueCropper }  from 'vue-cropper' ;
 
 export default {
 	name: 'upload-file',
-	components: { DeleteModal, DetailModal },
+	components: { DeleteModal, VueCropper },
 	data() {
 		return {
-			uploadfile: {
-				type: '',
-				comment: '',
-				file: Object
-			},
-			key: '',
-			curPage: 1,
-			perPage: 8,
-			fields: [
-				{
-					key: 'name',
-					label: '文件名',
-					sortable: true
-				},
-				{
-					key: 'category',
-					label: '文件类别'
-				},
-				{
-					key: 'createdAt',
-					label: '创建时间',
-					sortable: true
-				},
-				{
-					key: 'actions',
-					label: '操作'
-				}
-			],
-			items: [
-				{
-					id: 1,
-					name: 'file1.txt',
-					category: '文本',
-					createdAt: new Date()
-				},
-				{
-					id: 2,
-					name: 'file2.txt',
-					category: '文本',
-					createdAt: new Date()
-				},
-				{
-					id: 1,
-					name: 'file1.txt',
-					category: '文本',
-					createdAt: new Date()
-				},
-				{
-					id: 2,
-					name: 'file2.txt',
-					category: '文本',
-					createdAt: new Date()
-				},
-				{
-					id: 1,
-					name: 'file1.txt',
-					category: '文本',
-					createdAt: new Date()
-				},
-				{
-					id: 2,
-					name: 'file2.txt',
-					category: '文本',
-					createdAt: new Date()
-				},
-				{
-					id: 1,
-					name: 'file1.txt',
-					category: '文本',
-					createdAt: new Date()
-				},
-				{
-					id: 2,
-					name: 'file2.txt',
-					category: '文本',
-					createdAt: new Date()
-				},
-				{
-					id: 1,
-					name: 'file1.txt',
-					category: '文本',
-					createdAt: new Date()
-				},
-				{
-					id: 2,
-					name: 'file2.txt',
-					category: '文本',
-					createdAt: new Date()
-				},
-				{
-					id: 1,
-					name: 'file1.txt',
-					category: '文本',
-					createdAt: new Date()
-				},
-				{
-					id: 2,
-					name: 'file2.txt',
-					category: '文本',
-					createdAt: new Date()
-				},
-			],
 			file: null,
+			list: [],
+			option: {
+        img: "",
+        size: 1,
+				outputType: "png"
+			},
+			perPage: 8,
+			currentPage: 1,
 			selected: null,
-			categoryOptions: [
-				{ value: null, text: '请选择文件类别' },
-				{ value: 'a', text: 'option a' },
-			],
-			comment: ''
+			delete: null
 		};
 	},
 	computed: {
 		rows() {
-			return this.items.length;
+			return this.filterFile.length;
+		},
+		typeList() {
+			const list = [];
+			const typeList = [];
+
+			this.list.forEach(file => {
+				if (list.indexOf(file.type) === -1 && file.type) {
+					list.push(file.type);
+
+					typeList.push({
+						value: file.type, text: file.type
+					});
+				}
+			});
+
+			return typeList.concat([{
+				value: null, text: '全部'
+			}]);
+		},
+		renderFileList() {
+			return this.filterFile.slice((this.currentPage - 1) * this.perPage, this.currentPage * this.perPage);
+		},
+		filterFile() {
+			if (!this.selected) {
+				return this.list;
+			} else {
+				return this.list.filter(file => file.type === this.selected);
+			}
 		}
 	},
 	methods: {
+		getBlob() {
+			if( !this.file) {
+				return;
+			}
+
+			const reader = new FileReader();
+
+			reader.onload = ({target}) => {
+				this.option.img = target.result;
+			}
+			
+			reader.readAsDataURL(this.file);
+		},
 		onSubmit() {
-			
+			if (!this.file) {
+				return false;
+			}
+
+			const type = this.file.type;
+			const formdata = new FormData();
+
+			formdata.append('type', type);
+
+			if (this.option.img) {
+				this.$refs.cropper.getCropBlob((data) => { 
+					formdata.append('file', data);
+					this.$api.file.create(formdata).then(() => this.getFileList());
+				});
+			} else {
+				formdata.append('file', this.file);
+				this.$api.file.create(formdata).then(() => this.getFileList());
+			}
+
 		},
-		onReset() {
-			this.key = '';
+		deleteFile(id) {
+			this.delete = id;
 		},
-		deleteFile() {
-			
+		deleted() {
+			this.$api.file.delete(this.delete).then(() => {
+				this.getFileList();
+			});
+		},
+		getFileList() {
+			this.$api.file.getList().then(res => {
+				this.list = res.data;
+			});
+		},
+		resize() {
+			if (this.option.img) {
+				this.$refs.cropper.startCrop();
+				this.$refs.cropper.goAutoCrop();
+			}
 		}
+	},
+	mounted() {
+		this.getFileList();
 	}
 };
 </script>
+
+<style lang="less">
+.custom-file-input:lang(en) ~ .custom-file-label::after {
+	content: "上传";
+}
+
+.file-preview {
+	width: 90%;
+	height: 300px;;
+}
+
+#file {
+	.card {
+		min-height: 350px;
+	}
+}
+</style>
+
 

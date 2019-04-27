@@ -8,33 +8,33 @@
 			<menu-item 
 				has-sub 
 				name="文章管理" 
-				url="http://localhost:8080/#/article"
+				url="/#/article"
 				:sub-items="[
-					{ name: '创建文章', url: 'http://localhost:8080/#/article/add' },
-					{ name: '批量删除', url: 'http://localhost:8080/#/article/batch' }
+					{ name: '创建文章', url: '/#/article/add' },
+					{ name: '批量删除', url: '/#/article/batch' }
 				]"
 			>
 				{{ sub-items }}
 			</menu-item>
 			<menu-item
 				name="类别管理"
-				url="http://localhost:8080/#/category"
+				url="/#/category"
 			></menu-item>
 			<menu-item
 				name="文件上传管理"
-				url="http://localhost:8080/#/upload"
+				url="/#/upload"
 			></menu-item>
 			<menu-item
 				name="版块管理"
-				url="http://localhost:8080/#/section"
+				url="/#/section"
 			></menu-item>
 			<menu-item
 				name="版式管理"
-				url="http://localhost:8080/#/format"
+				url="/#/format"
 			></menu-item>
 			<menu-item
 				name="页面管理"
-				url="http://localhost:8080/#/page"
+				url="/#/page"
 			></menu-item>
 		</div>
 
@@ -78,5 +78,6 @@ export default {
 	right: 0;
 	bottom: 0;
 	left: @sidebar-width;
+	overflow-y: auto;
 }
 </style>

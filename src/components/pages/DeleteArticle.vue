@@ -51,12 +51,11 @@
 				/>
 			</b-col>
 		</b-row>
-		<delete-modal></delete-modal>
 		<b-table
 			ref="articles"
 			small
 			hover
-			:items="items"
+			:items="articleList"
 			:current-page="curPage"
 			:per-page="perPage"
 			:fields="[
@@ -98,7 +97,7 @@ export default {
 			perPage: 20,
 			curPage: 1,
 			itemSelected: [],
-			items: [
+			articleList: [
 				{
 					id: 1,
 					title: 'tesindetereminatettesttesttesttest',
@@ -108,137 +107,7 @@ export default {
 					id: 2,
 					title: 'esttesttesttestteste',
 					date: new Date()
-				},
-				{
-					id: 3,
-					title: 'testtesttesttesttest',
-					date: new Date()
-				},
-				{
-					id: 4,
-					title: 'esttesttesttestteste',
-					date: new Date()
-				},
-				{
-					id: 5,
-					title: 'testtesttesttesttest',
-					date: new Date()
-				},
-				{
-					id: 6,
-					title: 'esttesttesttestteste',
-					date: new Date()
-				},
-				{
-					id: 7,
-					title: 'testtesttesttesttest',
-					date: new Date()
-				},
-				{
-					id: 8,
-					title: 'esttesttesttestteste',
-					date: new Date()
-				},
-				{
-					id: 9,
-					title: 'testtesttesttesttest',
-					date: new Date()
-				},
-				{
-					id: 10,
-					title: 'esttesttesttestteste',
-					date: new Date()
-				},
-				{
-					id: 11,
-					title: 'testtesttesttesttest',
-					date: new Date()
-				},
-				{
-					id: 12,
-					title: 'esttesttesttestteste',
-					date: new Date()
-				},
-				{
-					id: 13,
-					title: 'testtesttesttesttest',
-					date: new Date()
-				},
-				{
-					id: 14,
-					title: 'esttesttesttestteste',
-					date: new Date()
-				},
-				{
-					id: 15,
-					title: 'tesindetereminatettesttesttesttest',
-					date: new Date()
-				},
-				{
-					id: 16,
-					title: 'esttesttesttestteste',
-					date: new Date()
-				},
-				{
-					id: 17,
-					title: 'testtesttesttesttest',
-					date: new Date()
-				},
-				{
-					id: 18,
-					title: 'esttesttesttestteste',
-					date: new Date()
-				},
-				{
-					id: 19,
-					title: 'testtesttesttesttest',
-					date: new Date()
-				},
-				{
-					id: 20,
-					title: 'esttesttesttestteste',
-					date: new Date()
-				},
-				{
-					id: 21,
-					title: 'testtesttesttesttest',
-					date: new Date()
-				},
-				{
-					id: 22,
-					title: 'esttesttesttestteste',
-					date: new Date()
-				},
-				{
-					id: 23,
-					title: 'testtesttesttesttest',
-					date: new Date()
-				},
-				{
-					id: 24,
-					title: 'esttesttesttestteste',
-					date: new Date()
-				},
-				{
-					id: 25,
-					title: 'testtesttesttesttest',
-					date: new Date()
-				},
-				{
-					id: 26,
-					title: 'esttesttesttestteste',
-					date: new Date()
-				},
-				{
-					id: 27,
-					title: 'testtesttesttesttest',
-					date: new Date()
-				},
-				{
-					id: 28,
-					title: 'esttesttesttestteste',
-					date: new Date()
-				},
+				}
 			],
 			indeterminate: false,
 			allSelected: false,
@@ -247,7 +116,7 @@ export default {
 	},
 	computed: {
 		rows() {
-			return this.items.length;
+			return this.articleList.length;
 		},
 		selectedItems() {
 			return this.itemSelected.length;
@@ -283,6 +152,16 @@ export default {
 		},
 		reset() {
 			this.filterByKey = null;
+		},
+		getArticleList() {
+			this.$api.article.getList().then(res => {
+				this.articleList = res.data;
+			});
+		},
+		deleteArticle() {
+			Promise.all(this.itemSelected.forEach(item => {
+				this.$api.article.deleteArticle(item);
+			}));
 		}
 	}
 };
