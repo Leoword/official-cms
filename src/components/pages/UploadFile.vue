@@ -49,7 +49,7 @@
 				</div>
 				 <b-card v-for="(file, index) in renderFileList" :key="index"
 						style="width: 23%" no-body class="float-left mr-3 my-3"
-						:img-src="`http://localhost:8081${file.url}`" img-top>
+						:img-src="`${file.url}`" img-top>
 						<b-card-text>
 							<p class="px-2 mb-0">类型：{{file.type}}</p>
 							<p class="px-2 mb-0">路径： {{file.url}}</p>

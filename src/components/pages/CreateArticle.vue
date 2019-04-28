@@ -23,22 +23,12 @@ export default {
 			category: {
 				list: [],
 				selected: []
-			},
-			categoryList: []
+			}
 		}
 	},
 	computed: {
 		articleId() {
 			return this.$route.query.articleId;
-		},
-		catgeoryCheckbox() {
-			this.categoryList.forEach(({name, id}) => {
-				this.category.list.push({
-					text: name, value: id
-				});
-
-				this.category.selected.push(id);
-			});
 		}
 	},
 	methods: {
@@ -58,7 +48,9 @@ export default {
 		},
 		getCategoryList() {
 			this.$api.category.getList().then(res => {
-				this.categoryList = res.data;
+				this.category.List = res.data.map(category => {
+					return {text: category.name, value: category.hash}
+				});
 			});
 		},
 		createClassification(articleId) {

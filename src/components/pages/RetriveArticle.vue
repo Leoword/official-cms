@@ -1,7 +1,7 @@
 <template>
 	<editor
 		:article="article" @upload-article="updateRetrive"
-		:category="category" :code="article.content"
+		:category="category" :content="article.content" ref="editor"
 	></editor>
 </template>
 
@@ -23,22 +23,12 @@ export default {
 				list: [],
 				selected: []
 			},
-			categoryList: [],
 			articleId: null
 		}
 	},
 	computed: {
 		languageId() {
 			return this.$route.params.id
-		},
-		catgeoryCheckbox() {
-			this.categoryList.forEach(({name, id}) => {
-				this.category.list.push({
-					text: name, value: id
-				});
-
-				this.category.selected.push(id);
-			});
 		}
 	},
 	methods: {
@@ -46,6 +36,9 @@ export default {
 			this.$api.language.get(this.languageId).then(res => {
 				this.article = res.data;
 				this.articleId = res.data.hash;
+
+				this.$refs.editor.updateCode()
+
 				this.getClassification();
 			});
 		},
@@ -57,11 +50,13 @@ export default {
 		},
 		getCategoryList() {
 			this.$api.category.getList().then(res => {
-				this.categoryList = res.data;
+				this.category.List = res.data.map(category => {
+					return {text: category.name, value: category.hash}
+				});
 			});
 		},
 		getClassification() {
-			this.$api.getClassificationList(this.articleId).then(res => {
+			this.$api.article.getClassificationList(this.articleId).then(res => {
 				res.data.forEach(category => {
 					this.category.selected.push(category.id);
 					this.category.origin.push(category.id);
@@ -90,7 +85,7 @@ export default {
 	},
 	mounted() {
 		this.getRetrive();
-		this.getCategoryList();
+		// this.getCategoryList();
 	}
 };
 </script>
