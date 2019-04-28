@@ -1,1 +1,1 @@
-import axiosRetrive from './axios';
+import axios from 'axios';

@@ -1,19 +1,19 @@
-import axiosRetrive from './axios';
+import axios from 'axios';
 
 export default {
 	create(format) {
-		return axiosRetrive.post('/format', format);
+		return axios.post('/api/format', format);
 	},
-	update() {
-		
+	update(format) {
+		return axios.put(`/api/format/${format.id}`, format);
 	},
-	get() {
-
+	get(id) {
+		return axios.get(`/api/format/${id}`);
 	},
 	getList() {
-
+		return axios.get('/api/format');
 	},
-	delete() {
-
+	delete(id) {
+		return axios.delete(`/api/format/${id}`);
 	}
 };

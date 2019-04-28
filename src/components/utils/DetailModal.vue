@@ -5,6 +5,7 @@
 		ok-title="修改"
 		cancel-title="取消"
 		:title="itemName"
+		@ok="handleOk"
 	>
 		<div v-if="isUploadFile">
 			<b-form-group
@@ -97,6 +98,7 @@
 			>
 				<b-form-input
 					id="format-name"
+					v-model="result.name"
 					size="sm"
 				></b-form-input>
 			</b-form-group>
@@ -106,6 +108,7 @@
 			>
 				<b-form-textarea 
 					id="format-comment"
+					v-model="result.comment"
 					size="sm"
 					rows="3"
 				></b-form-textarea>
@@ -169,31 +172,16 @@ export default {
 		isPage: {
 			type: Boolean,
 			default: false
+		},
+		result: {
+			type: String,
+			default: () => {}
 		}
 	},
-	data() {
-		return {
-			fileCategorySelected: 'a',
-			sectionFormatSelected: null,
-			categoryOptions: [
-				{value: null, text: '未选择' },
-				{value: 'a', text: 'option a' },
-				{value: 'b', text: 'option b' }
-			],
-			formatOptions: [
-				{value: null, text: '未选择' },
-				{value: 'a', text: 'option a' },
-				{value: 'b', text: 'option b' }
-			],
-			hash: 'testtesttest',
-			sectionSelected: [],
-			sectionOptions: [
-				{ text: 'Orange', value: 'orange' },
-				{ text: 'Apple', value: 'apple' },
-				{ text: 'Pineapple', value: 'pineapple' },
-				{ text: 'Grape', value: 'grape' }
-			],
-		};
+	methods: {
+		handleOk() {
+			this.$emit('ok');
+		}
 	}
 };
 </script>

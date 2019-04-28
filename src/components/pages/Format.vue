@@ -36,16 +36,62 @@
 					</b-col>
 				</b-row>
 				<b-row>
-					<b-col>
-						<b-button class="mr-2">重置</b-button>
+					<b-col cols="auto">
+						<span v-if="createError" class="pull-left text-danger">
+							版式创建失败！
+						</span>
+					</b-col>
+					<b-col class="ml-auto pull-right" cols="auto">
 						<b-button 
-							@click="onSubmit" 
 							class="mr-2" 
-							variant="primary">确定</b-button>
+							@click="reset(format)"
+						>重置</b-button>
+						<b-button 
+							class="mr-2" 
+							variant="primary"
+							@click="onSubmit">确定</b-button>
 					</b-col>
 				</b-row>
 			</b-form>
 		</b-card>
+		<b-modal 
+			id="item-detail"
+			centered
+			ok-title="修改"
+			cancel-title="取消"
+			title="版式详情"
+			@ok="updateFormatById()"
+		>
+			<b-form-group
+				label="版式名称"
+				label-for="format-name"
+			>
+				<b-form-input
+					id="format-name"
+					v-model="formatById.name"
+					size="sm"
+				></b-form-input>
+			</b-form-group>
+			<b-form-group
+				label="版式描述"
+				label-for="format-comment"
+			>
+				<b-form-textarea 
+					id="format-comment"
+					v-model="formatById.comment"
+					size="sm"
+					rows="3"
+				></b-form-textarea>
+			</b-form-group>
+			<span v-if="updateError" class="pull-left text-danger">
+				版式更新失败！
+			</span>
+		</b-modal>
+		<delete-modal
+			model-title="版式删除"
+			message="确认删除该版式?"
+			@ok="deleteFormat(deleteId)"
+		></delete-modal>
 		<b-row class="my-2">
 			<b-col
 				class="ml-auto"
@@ -58,38 +104,33 @@
 				></b-pagination>
 			</b-col>
 		</b-row>
-		<detail-modal
-			item-name="版块详情"
-			is-format
-		></detail-modal>
-		<delete-modal
-			model-title="版式删除"
-			message="确认删除该版式?"
-		></delete-modal>
 		<b-table 
 			id="format"
 			hover
-			:items="items"
+			small
 			:current-page="curPage"
 			:per-page="perPage"
 			:fields="[
 				{ key: 'name', label: '版式名称' },
 				{ key: 'createdAt', label: '创建时间', sortable: true },
 				{ key: 'action', label: '操作' }
+
 			]"
+			:items="formatList"
 		>
 			<template slot="name" slot-scope="data">
-				<b-btn
+				<b-button
 					v-b-modal.item-detail
 					variant="link"
-				>{{ data.item.name }}</b-btn>
+					@click="getFormatById(data.item.id)"
+				>{{ data.item.name }}</b-button>
 			</template>
-			<template slot="action">
+			<template slot="action" slot-scope="data">
 				<i 
 					v-b-modal.delete-item
 					class="fa fa-trash fa-lg text-danger"
 					aria-hidden="true"
-					@click="deleteFile"
+					@click="getFormatId(data.item.id)"
 				></i>
 			</template>
 		</b-table>
@@ -98,18 +139,24 @@
 
 <script>
 import DeleteModal from '../utils/DeleteModal.vue';
-import DetailModal from '../utils/DetailModal.vue';
 
 export default {
-	components: { DeleteModal, DetailModal },
+	components: { DeleteModal },
 	data() {
 		return {
 			curPage: 1,
 			perPage: 8,
-			items: [
-				{ name: '1111', createdAt: new Date() }
-			],
 			format: {
+				name: '',
+				comment: ''
+			},
+			formatList: [],
+			createError: false,
+			updateError: false,
+			deleteError: false,
+			deleteId: '',
+			formatById: {
+				id: '',
 				name: '',
 				comment: ''
 			}
@@ -117,19 +164,60 @@ export default {
 	},
 	computed: {
 		rows() {
-			return this.items.length;
+			return this.formatList.length;
 		}
 	},
+	mounted() {
+		this.getFormatList();
+	},
 	methods: {
-		onSubmit() {
-			this.$api.format.create(this.format).then(({data}) => {
-				
-			}).catch(e => {
-				console.log(e);
+		getFormatList() {
+			return this.$api.format.getList().then(res => {
+				this.formatList = res.data;
 			});
 		},
-		deleteFile() {
-			
+		onSubmit() {
+			this.$api.format.create(this.format).then(() => {
+				this.getFormatList();
+			}).catch(e => {
+				if(e) {
+					this.createError = true;
+				}
+			});
+		},
+		deleteFormat(id) {
+			return this.$api.format.delete(id).then(() => {
+				this.getFormatList();
+			}).catch(e => {
+				if(e) {
+					this.deleteError = true;
+				}
+			});
+		},
+		getFormatById(id) {
+			return this.$api.format.get(id).then(res => {
+				this.formatById.id = res.data.id;
+				this.formatById.name = res.data.name;
+				this.formatById.comment = res.data.comment;
+			});
+		},
+		updateFormatById() {
+			return this.$api.format.update(this.formatById).then(() => {
+				this.getFormatList();
+				this.reset(this.formatById);
+			}).catch(e => {
+				if(e) {
+					this.updateError = false;
+				}
+			});
+		},
+		getFormatId(id) {
+			this.deleteId = id;
+		},
+		reset(format) {
+			format.name = '';
+			format.comment = '';
+			format.id = '';
 		}
 	}
 };

@@ -5,6 +5,7 @@
 		:title="modelTitle"
 		ok-title="确定"
 		cancel-title="取消"
+		@ok="handleOk"
 	>
 		<p>{{ message }}</p>
 	</b-modal>
@@ -21,6 +22,11 @@ export default {
 		message: {
 			type: String,
 			default: '确认删除该项目?'
+		}
+	},
+	methods: {
+		handleOk() {
+			this.$emit('ok');
 		}
 	}
 };

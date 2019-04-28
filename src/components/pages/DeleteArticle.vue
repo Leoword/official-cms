@@ -34,8 +34,7 @@
 					v-b-modal.modal-center 
 					size="sm"
 					variant="danger"
-				>
-					批量删除
+				>批量删除
 					<b-badge v-if="selectedItems !== 0" variant="light">{{ selectedItems }}</b-badge>
 				</b-button>
 			</b-col>
