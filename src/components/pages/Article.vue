@@ -137,9 +137,7 @@ export default {
 					key: 'label'
 				}
 			],
-			articleList: [
-				{title: '11111111'}
-			],
+			articleList: [],
 			filterByKey: '',
 			sortOptions: {
 				list: [],
@@ -199,7 +197,7 @@ export default {
 			});
 		},
 		deleteArticle(id) {
-			this.$api.language.delete(id);
+			this.$api.language.delete(id).then(() => this.getArticleList());
 		},
 		createArticle(articleId) {
 			this.$router.push(`/article/add?articleId=${articleId}`);

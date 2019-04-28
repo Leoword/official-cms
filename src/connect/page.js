@@ -1,22 +1,22 @@
 import axios from 'axios';
 import config from '../../config.json';
 
-const {prefix} = config;
+const { baseURL } = config;
 
 export default {
 	create(page) {
-		return axios.post(`${prefix}/page`, page);
+		return axios.post(`${baseURL}/page`, page);
 	},
 	get(id) {
-		return axios.get(`${prefix}/page/${id}`);
+		return axios.get(`${baseURL}/page/${id}`);
 	},
 	getList() {
-		return axios.get(`${prefix}/page`);
+		return axios.get(`${baseURL}/page`);
 	},
 	update(id, page) {
-		return axios.put(`${prefix}/page/${id}`, page);
+		return axios.put(`${baseURL}/page/${id}`, page);
 	},
 	delete(id) {
-		return axios.delete(`${prefix}/page/${id}`);
+		return axios.delete(`${baseURL}/page/${id}`);
 	}
 }

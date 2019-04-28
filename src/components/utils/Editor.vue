@@ -78,7 +78,7 @@ import * as brace from 'brace';
 import 'brace/ext/modelist';
 import 'brace/ext/themelist';
 
-import ISO6391 from '@ovl/iso-639-1'
+import ISO6391 from '@ovl/iso-639-1';
 
 const lang = new ISO6391();
 
@@ -97,10 +97,12 @@ export default {
 	},
 	props: {
 		article: {
-			type: Object
+			type: Object,
+			default: null
 		},
 		category: {
-			type: Object
+			type: Object,
+			default: null
 		},
 		content: {
 			type: String,
@@ -140,7 +142,7 @@ export default {
 		editor.setHighlightActiveLine(true);
 		editor.getSession().on('change', this.emitCode);
 		editor.setReadOnly(false);
-		this.updateCode();
+		setTimeout(this.updateCode, 1000);
 		editor.setOption('wrap', 'free');
 		editor.setOption('selectionStyle', 'text');
 		editor.getSession().setTabSize(2);

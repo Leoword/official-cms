@@ -24,11 +24,11 @@ export default {
 				selected: []
 			},
 			articleId: null
-		}
+		};
 	},
 	computed: {
 		languageId() {
-			return this.$route.params.id
+			return this.$route.params.id;
 		}
 	},
 	methods: {
@@ -37,15 +37,17 @@ export default {
 				this.article = res.data;
 				this.articleId = res.data.hash;
 
-				this.$refs.editor.updateCode()
-
 				this.getClassification();
 			});
 		},
 		updateRetrive() {
-			this.$api.language.update(this.languageId, this.article).then(res => {
+			const content = this.$refs.editor.getCode();
+			this.$api.language.update(this.languageId, Object.assign({},
+				this.article, { content })).then(() => {
 				this.updateClassification();
 				this.getRetrive();
+			}).then(() => {
+				// this.$router.push('/article');
 			});
 		},
 		getCategoryList() {

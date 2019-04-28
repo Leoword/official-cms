@@ -24,7 +24,7 @@ export default {
 				list: [],
 				selected: []
 			}
-		}
+		};
 	},
 	computed: {
 		articleId() {
@@ -48,8 +48,8 @@ export default {
 		},
 		getCategoryList() {
 			this.$api.category.getList().then(res => {
-				this.category.List = res.data.map(category => {
-					return {text: category.name, value: category.hash}
+				this.category.list = res.data.map(category => {
+					return { text: category.name, value: category.hash };
 				});
 			});
 		},

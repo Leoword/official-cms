@@ -22,6 +22,7 @@
 							id="page-path"
 							v-model="page.path"
 							size="sm"
+							placeholder="页面路径"
 						></b-form-input>
 					</b-form-group>
 					<b-form-group label="页面版块" label-for="page-section">
@@ -169,6 +170,7 @@ export default {
 		},
 		reset() {
 			this.page = createPage();
+			this.selectedPage = null;
 		},
 		submit() {
 			const {name, comment, path, sectionList} = this.page;

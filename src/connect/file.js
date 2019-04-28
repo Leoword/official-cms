@@ -1,23 +1,23 @@
 import axios from 'axios';
 import config from '../../config.json';
 
-const {prefix} = config;
+const { baseURL } = config;
 
 export default {
 	create(file) {
-		return axios.post(`${prefix}/file`, file, {
+		return axios.post(`${baseURL}/file`, file, {
 			headers: {
 				'Content-Type': 'multipart/form-data'
 			}
 		});
 	},
 	getList() {
-		return axios.get(`${prefix}/file`);
+		return axios.get(`${baseURL}/file`);
 	},
 	get(id) {
-		return axios.get(`${prefix}/file/${id}`);
+		return axios.get(`${baseURL}/file/${id}`);
 	},
 	delete(id) {
-		return axios.delete(`${prefix}/file/${id}`);
+		return axios.delete(`${baseURL}/file/${id}`);
 	}
 }

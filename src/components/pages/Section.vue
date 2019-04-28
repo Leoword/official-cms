@@ -189,7 +189,7 @@ export default {
 				name: '',
 				formatId: null,
 				comment: '',
-				collection: '{}'
+				collection: '{"type": "file | article","args": {"category": "","type": "","thumbnail": "","exp": {"limit": 1,"hash": "","title": ""}}}'
 			},
 			sectionById: {
 				id: '',
@@ -231,6 +231,7 @@ export default {
 			};
 			this.$api.section.create(section).then(() => {
 				this.getSectionList();
+				this.reset(this.section);
 			}).catch(e => {
 				if(e) {
 					this.isError = true;

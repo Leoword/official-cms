@@ -174,6 +174,7 @@ export default {
 		getFormatList() {
 			return this.$api.format.getList().then(res => {
 				this.formatList = res.data;
+				this.reset(this.format);
 			});
 		},
 		onSubmit() {

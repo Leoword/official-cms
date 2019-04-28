@@ -8,6 +8,7 @@
 			title="删除文章"
 			ok-title="删除"
 			cancel-title="取消"
+			@ok="deleteArticle"
 		>
 			<p class="my-4">确认删除所选中的文章?</p>
 		</b-modal>
@@ -76,7 +77,7 @@
 			<template slot="checkbox" slot-scope="data">
 				<b-form-checkbox
 					v-model="itemSelected"
-					:value="data.item.id"
+					:value="data.item.hash"
 					/>
 			</template>
 			<template slot="title" slot-scope="data">
@@ -97,18 +98,7 @@ export default {
 			perPage: 20,
 			curPage: 1,
 			itemSelected: [],
-			articleList: [
-				{
-					id: 1,
-					title: 'tesindetereminatettesttesttesttest',
-					date: new Date()
-				},
-				{
-					id: 2,
-					title: 'esttesttesttestteste',
-					date: new Date()
-				}
-			],
+			articleList: [],
 			indeterminate: false,
 			allSelected: false,
 			filterByKey: ''
@@ -142,7 +132,7 @@ export default {
 			this.itemSelected = [];
 			if(checked) {
 				articles.computedItems.forEach(item => {
-					this.itemSelected.push(item.id);
+					this.itemSelected.push(item.hash);
 				});
 			}
 			this.allSelected = true;
@@ -159,10 +149,15 @@ export default {
 			});
 		},
 		deleteArticle() {
-			Promise.all(this.itemSelected.forEach(item => {
-				this.$api.article.deleteArticle(item);
-			}));
+			Promise.all(this.itemSelected.map(item => {
+				return this.$api.language.delete(item);
+			})).then(() => {
+				this.$router.push('/article');
+			});
 		}
+	},
+	mounted() {
+		this.getArticleList();
 	}
 };
 </script>

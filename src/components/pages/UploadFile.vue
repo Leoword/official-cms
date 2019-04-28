@@ -10,12 +10,16 @@
 					size="sm" plain
 				/>
 				<b-button 
-					class="mr-2" size="sm"
-					@click="getBlob">预览</b-button>
+					class="mr-2" 
+					size="sm"
+					variant="success"
+					@click="getBlob" 
+				>预览</b-button>
 				<b-button 
-					class="mr-2" size="sm"
+					class="mr-2" 
+					size="sm"
+					variant="danger"
 					@click="resize">裁剪</b-button>
-				<b-button class="mr-2" size="sm" @click="onSubmit">上传</b-button>
 			</div>
 			<div class="file-preview mt-3">
 				<vueCropper
@@ -28,6 +32,7 @@
 					:autoCropHeight="200"
 					:centerBox="option.centerBox"
 				></vueCropper>
+				<b-button class="my-2 pull-right" variant="primary" size="sm" @click="onSubmit">上传</b-button>
 			</div>
 		</div>
 		<div class="ml-3 float-right" style="width: 56%">
@@ -47,22 +52,22 @@
 						></b-pagination>
 					</div>
 				</div>
-				 <b-card v-for="(file, index) in renderFileList" :key="index"
-						style="width: 23%" no-body class="float-left mr-3 my-3"
-						:img-src="`${file.url}`" img-top>
-						<b-card-text>
-							<p class="px-2 mb-0">类型：{{file.type}}</p>
-							<p class="px-2 mb-0">路径： {{file.url}}</p>
-							<p class="px-2 mb-0 text-right">
-								<i 
-									v-b-modal.delete-item
-									class="fa fa-trash fa-lg text-danger"
-									aria-hidden="true"
-									@click="deleteFile(file.id)"
-								></i>
-							</p>
-						</b-card-text>
-					</b-card>
+				<b-card v-for="(file, index) in renderFileList" :key="index"
+					style="width: 23%" no-body class="float-left mr-3 my-3"
+					:img-src="`${file.url}`" img-top>
+					<b-card-text>
+						<p class="px-2 mb-0">类型：{{file.type}}</p>
+						<p class="px-2 mb-0">路径： {{file.url}}</p>
+						<p class="px-2 mb-0 text-right">
+							<i 
+								v-b-modal.delete-item
+								class="fa fa-trash fa-lg text-danger"
+								aria-hidden="true"
+								@click="deleteFile(file.id)"
+							></i>
+						</p>
+					</b-card-text>
+				</b-card>
 			</div>
 		</div>
 		<delete-modal
@@ -70,7 +75,6 @@
 			message="确认删除该文件?"
 			@ok="deleted"
 		></delete-modal>
-		
 	</b-container>
 </template>
 
@@ -87,9 +91,9 @@ export default {
 			file: null,
 			list: [],
 			option: {
-        img: "",
-        size: 1,
-				outputType: "png"
+				img: '',
+				size: 1,
+				outputType: 'png'
 			},
 			perPage: 8,
 			currentPage: 1,
