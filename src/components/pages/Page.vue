@@ -97,13 +97,11 @@
 				</b-table>
 			</b-col>
 		</b-row>
-		
 	</b-container>
 </template>
 
 <script>
 import DeleteModal from '../utils/DeleteModal.vue';
-import DetailModal from '../utils/DetailModal.vue';
 
 function createPage() {
 	return {
@@ -115,7 +113,7 @@ function createPage() {
 }
 
 export default {
-	components: { DeleteModal, DetailModal },
+	components: { DeleteModal },
 	data() {
 		return {
 			curPage: 1,

@@ -106,7 +106,7 @@
 		</b-row>
 		<b-card class="my-4" style="height: 580px; overflow: auto">
 			<vue2-org-tree
-				:data="items"
+				:data="categoryTree"
 				horizontal
 				:render-content="renderContent"
 			></vue2-org-tree>
@@ -134,56 +134,6 @@ export default {
 			deleteId: '',
 			categoryList: [],
 			categoryOptions: [],
-			items: {
-				id: 0,
-				label: 'root',
-				children: [
-					{
-						id: 2,
-						label: '产品研发部',
-						children: [
-							{
-								id: 5,
-								label: '研发-前端'
-							},
-							{
-								id: 6,
-								label: '研发-后端'
-							},
-							{
-								id: 9,
-								label: 'UI设计'
-							},
-							{
-								id: 10,
-								label: '产品经理'
-							}
-						]
-					},
-					{
-						id: 3,
-						label: '销售部',
-						children: [
-							{
-								id: 7,
-								label: '销售一部'
-							},
-							{
-								id: 8,
-								label: '销售二部'
-							}
-						]
-					},
-					{
-						id: 4,
-						label: '财务部'
-					},
-					{
-						id: 9,
-						label: 'HR人事'
-					}
-				]
-			},
 		};
 	},
 	computed: {
@@ -194,6 +144,11 @@ export default {
 			return this.categoryOptions.filter(category => {
 				return category.value !== this.category.id;
 			});
+		},
+		categoryTree() {
+			return {
+				id: 0, label: '类别', children: this.contructTree()
+			};
 		}
 	},
 	mounted() {
@@ -201,6 +156,24 @@ export default {
 		this.getCategoryList();
 	},
 	methods: {
+		contructTree(parent = null) {
+			const tree = [];
+
+			this.categoryList.forEach(category => {
+				if (category.parent === parent) {
+					const info = {
+						id: category.hash, label: category.name,
+						children: []
+					};
+
+					info.children = this.contructTree(category.hash)
+
+					tree.push(info);
+				}
+			});
+
+			return tree;
+		},
 		renderContent(h, data) {
 			return data.label;
 		},
@@ -222,6 +195,7 @@ export default {
 			this.$api.category.create(this.category).then(() => {
 				this.getCategoryList();
 			}).then(() => {
+				this.getCategoryOption();
 				this.reset();
 			});
 		},

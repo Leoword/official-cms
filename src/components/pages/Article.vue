@@ -119,7 +119,7 @@
 </template>
 
 <script>
-import ISO6391 from '@ovl/iso-639-1'
+import ISO6391 from '@ovl/iso-639-1';
 
 const lang = new ISO6391();
 
@@ -182,7 +182,7 @@ export default {
 					text: name, value: lang.getCode(name)
 				});
 
-				this.languageOptions.selected.push(lang.getCode(name))
+				this.languageOptions.selected.push(lang.getCode(name));
 			});
 		},
 		getCategoryList() {
