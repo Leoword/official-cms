@@ -22,7 +22,11 @@ import Page from '../components/pages/Page.vue';
 
 const routes = [
 	{
-		path: '/',
+		path:'/',
+		redirect:'/welcome'
+	},
+	{
+		path: '/welcome',
 		component: Welcome
 	},
 	{
