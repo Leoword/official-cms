@@ -1,71 +1,105 @@
 <template>
 	<div id="editor" class="h-100">
-		<b-form inline id="top" class="border-bottom border-secondary py-2 px-3">
-			 <label class="mr-sm-2" for="article-title">文章题目</label>
-			 <b-form-input
-					id="article-title"
-					size="sm" class="float-left" style="width: 10em"
-					placeholder="文章题目"
-					v-model="article.title"
-				></b-form-input>
-				<b-dropdown 
-					size="sm"
-					text="分类" 
-					variant="link"
-					class="ml-sm-5 mr-sm-2" style="font-size: 16px"
-					>
-					<b-form-group>
-						<b-form-checkbox-group v-model="category.selected"
-							:options="category.list">
-						</b-form-checkbox-group>
-					</b-form-group>
-				</b-dropdown>
-				<label class="ml-sm-5 mr-sm-2" for="language">语言</label>
-				<b-form-select
-					id="language" 
-					v-model="languageOptions.selected"
-					size="sm"
-					:options="languageOptions.list"
-				></b-form-select>
-			<b-badge 
-				v-if="editState === 0" 
-				variant="warning"
-				class="ml-sm-5 mr-sm-2"
-			>未编辑</b-badge>
-			<b-badge 
-				v-else
-				variant="danger"
-				class="ml-sm-5 mr-sm-2"
-			>已编辑</b-badge>
-			<b-dropdown 
-				id="abstract" 
-				ref="dropdown" 
-				text="文章摘要" 
-				variant="link"
-				class="mr-sm-2"
-			>
-				<b-dropdown-form 
-					style="width: 350px"
+		<b-row class="mt-4">
+			<b-col cols="5">
+				<b-form-group
+					label-for="article-title"
+					label-cols-sm="2"
+					label-align-sm="right"
+					label="文章题目:"
 				>
-					<b-form-textarea
-						id="textarea"
-						v-model="article.abstract"
+					<b-form-input
+							id="article-title"
+							v-model="article.title"
+							size="sm"
+							placeholder="文章题目"
+						></b-form-input>
+				</b-form-group>
+			</b-col>
+			<b-col cols="3">
+				<b-form-group
+					label="语言:"
+					label-for="language"
+					label-cols-sm="2"
+					label-align-sm="right"
+				>
+					<b-form-select
+						id="language"
+						v-model="languageOptions.selected"
 						size="sm"
-						placeholder="请输入文章摘要" class="mb-3"
-						rows="5" style="display: block;width: 100%"
-					/>
-					<b-button variant="primary" size="sm" @click="onClick">完成</b-button>
-				</b-dropdown-form>
-			</b-dropdown>
-			<b-btn size="sm" variant="primary" class="ml-5" @click="upload">上传</b-btn>
-		</b-form>
+						:options="languageOptions.list"
+					></b-form-select>
+				</b-form-group>
+			</b-col>
+			<b-col cols="4">
+				<b-row>
+					<b-col cols="auto">
+						<b-badge 
+							v-if="selectedState === 0"
+							variant="warning">未选择</b-badge>
+						<b-badge 
+							v-else
+							variant="success">已选择</b-badge>
+						<b-dropdown 
+							text="分类" 
+							variant="link"
+							>
+							<b-form-group>
+								<b-form-checkbox-group 
+									v-model="category.selected"
+									:options="category.list"
+								></b-form-checkbox-group>
+							</b-form-group>
+						</b-dropdown>
+					</b-col>
+					<b-col cols="auto">
+						<b-badge 
+							v-if="editState === 0" 
+							variant="warning"
+							>未编辑</b-badge>
+						<b-badge 
+							v-else
+							variant="success"
+							>已编辑</b-badge>
+						<b-dropdown 
+							id="abstract" 
+							ref="dropdown" 
+							text="文章摘要" 
+							variant="link"
+						>
+							<b-dropdown-form 
+								style="width: 350px"
+							>
+								<b-form-textarea
+									id="textarea"
+									v-model="article.abstract"
+									size="sm"
+									placeholder="请输入文章摘要" 
+									rows="5" 
+									style="display: block;width: 100%"
+								/>
+								<b-button 
+									variant="primary" 
+									size="sm"
+									class="pull-right" 
+									@click="onClick">完成</b-button>
+							</b-dropdown-form>
+						</b-dropdown>
+					</b-col>
+					<b-col cols="auto">
+						<b-btn size="sm">重置</b-btn>
+						<b-btn size="sm" variant="primary" @click="upload">上传</b-btn>
+					</b-col>
+				</b-row>
+			</b-col>
+		</b-row>
 		<b-row class="h-100 p-0 m-0">
 			<b-col cols="6" class="m-0 p-0">
 				<div id="ace-editor" class="h-100"></div>
 			</b-col>
 			<b-col cols="6" class="h-100 m-0 p-0">
 				<div
-					class="preview markdown-body h-100 p-1 border-left border-secondary"
+					class="preview markdown-body h-100 p-1 border-top"
 					v-html="htmlCache"	
 				/>
 			</b-col>
@@ -123,9 +157,14 @@ export default {
 		editState() {
 			if(this.article.abstract.length === 0) {
 				return 0;
-			} else {
+			} 
+			return 1;
+		},
+		selectedState() {
+			if(this.article.category) {
 				return 1;
 			}
+			return 0;
 		}
 	},
 	watch: {
@@ -158,7 +197,7 @@ export default {
 			}
 		},
 		setTheme() {
-			let themeObj = themelist.themesByName['github'];
+			let themeObj = themelist.themesByName['twilight'];
 			if(themeObj) {
 				require('brace/theme/' + themeObj.name);
 				editor.setTheme(themeObj.theme);
@@ -192,9 +231,12 @@ export default {
 </script>
 
 <style lang="less">
+#editor {
+	overflow: hidden;
+}
 .preview {
 	word-wrap:break-word;
-	// overflow-y: scroll;
+	overflow-y: auto;
 }
 </style>
 

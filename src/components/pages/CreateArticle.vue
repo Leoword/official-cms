@@ -1,7 +1,10 @@
 <template>
-	<editor :article="article" @upload-article="createArticle"
+	<editor 
 	ref="editor"
-	:category="category"></editor>
+	:article="article" 
+	:category="category"
+	@upload-article="createArticle"
+	></editor>
 </template>
 
 <script>
@@ -9,9 +12,6 @@ import Editor from '../utils/Editor.vue';
 
 export default {
 	components: { Editor },
-	methods: {
-
-	},
 	data() {
 		return {
 			article: {
@@ -37,7 +37,7 @@ export default {
 			this.article.content = this.$refs.editor.getCode();
 
 			if (this.articleId) {
-				this.$api.language.create(this.articleId, this.article).then(res => {
+				this.$api.language.create(this.articleId, this.article).then(() => {
 					this.createClassification(this.articleId);
 				});
 			} else {
@@ -56,7 +56,7 @@ export default {
 		createClassification(articleId) {
 			Promise.all(this.category.selected.map(categoryId => {
 				return this.$api.article.createClassification({articleId, categoryId});
-			})).then(res => {
+			})).then(() => {
 				this.$router.push('/article');
 			});
 		}
