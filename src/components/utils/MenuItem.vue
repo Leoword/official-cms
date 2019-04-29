@@ -53,7 +53,8 @@ export default {
 		},
 		url: {
 			type: String,
-			default: '#'
+			default: '#',
+			validator: (val) => (val === '#' || regMap.isUrl.test(val))
 		},
 		subItems: {
 			type: Array,

@@ -8,8 +8,8 @@
 			<menu-item 
 				has-sub 
 				name="文章管理" 
-				url="/#/article"
 				:sub-items="[
+					{ name: '文章列表', url: '/#/article'},
 					{ name: '创建文章', url: '/#/article/add' },
 					{ name: '批量删除', url: '/#/article/batch' }
 				]"
