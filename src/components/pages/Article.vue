@@ -1,10 +1,10 @@
 <template>
 	<b-container fluid id="article-list">
-		<h1>文章列表</h1>
+		<h1>{{$t('content.articleList.title')}}</h1>
 		<b-row class="mt-4">
-			<b-col cols="2">
+			<b-col cols="3">
 				<b-form-group 
-					label="关键字"
+					:label="$t('content.articleList.keyword')"
 					label-for="key"
 					label-cols-sm="3"
 					label-align-sm="left"
@@ -13,13 +13,13 @@
 						id="key"
 						v-model="filterByKey"
 						size="sm"
-						placeholder="请输入关键字"
+						:placeholder="$t('content.articleList.keywordPlaceholder')"
 						/>
 				</b-form-group>
 			</b-col>
 			<b-col cols="3">
-				<b-btn size="sm" @click="reset">重置</b-btn>
-				<b-btn size="sm" type="submit" variant="primary">查询</b-btn>
+				<b-btn size="sm" @click="reset">{{$t('content.articleList.reset')}}</b-btn>
+				<b-btn size="sm" type="submit" variant="primary">{{$t('content.articleList.discovery')}}</b-btn>
 			</b-col>
 			<b-col cols="auto" class="ml-auto">
 				<b-pagination
@@ -39,16 +39,19 @@
 			hover
 			:items="articleList"
 			:current-page="curPage"
-			:fields="fields"
+			:fields="[
+				{key: 'title',	label: '文章标题'},
+				{key: 'label'}
+			]"
 			:per-page="perPage"
 		>
-			<template slot="HEAD_title" slot-scope="data">
-				<b>{{ data.label }}</b>
+			<template slot="HEAD_title">
+				{{ $t('content.articleList.title') }}
 			</template>
 			<template slot="HEAD_label">
 				<b-dropdown 
 					size="sm"
-					text="作者" 
+					:text="$t('content.articleList.table.author')" 
 					variant="link"
 					style="float: right"
 					>
@@ -60,7 +63,7 @@
 				</b-dropdown>
 				<b-dropdown 
 					size="sm"
-					text="语言" 
+					:text="$t('content.articleList.table.lang')" 
 					variant="link"
 					style="float: right"
 					>
@@ -72,7 +75,7 @@
 				</b-dropdown>
 				<b-dropdown 
 					size="sm"
-					text="分类" 
+					:text="$t('content.articleList.table.category')" 
 					variant="link"
 					style="float: right"
 					>
@@ -84,12 +87,12 @@
 				</b-dropdown>
 				<b-dropdown 
 					size="sm"
-					text="排序方式" 
+					:text="$t('content.articleList.table.sortBy.name')"
 					variant="link"
 					style="float: right"
 					>
-					<b-dropdown-item>创建时间升序排列</b-dropdown-item>
-					<b-dropdown-item>创建时间降序排列</b-dropdown-item>
+					<b-dropdown-item>{{$t('content.articleList.table.sortBy.asc')}}</b-dropdown-item>
+					<b-dropdown-item>{{$t('content.articleList.table.sortBy.desc')}}</b-dropdown-item>
 				</b-dropdown>
 			</template>
 
@@ -99,7 +102,7 @@
 				>
 				<div>
 					<b-link :to="`/article/${data.item.hash}`">{{ data.item.title }}</b-link>
-					<span class="ml-5">创建于{{ data.item.date }}</span>
+					<span class="ml-5">{{$t('content.articleList.table.createdBy')}} {{data.item.date }}</span>
 					<span class="ml-5">
 						<i 
 							class="fa fa-trash text-danger" style="font-size: 25px"
@@ -128,15 +131,6 @@ export default {
 		return {
 			perPage: 10,
 			curPage: 1,
-			fields: [
-				{
-					key: 'title',
-					label: '文章标题',
-				},
-				{
-					key: 'label'
-				}
-			],
 			articleList: [],
 			filterByKey: '',
 			sortOptions: {

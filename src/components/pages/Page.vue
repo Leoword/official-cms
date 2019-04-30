@@ -1,51 +1,54 @@
 <template>
 	<b-container fluid>
-		<h1>页面管理</h1>
+		<h1 class="mb-5">{{$t('content.page.title')}}</h1>
 		<b-row>
 			<b-col>
-				<b-card :title="title">
+				<b-card :title="$t('content.page.create')">
 					<b-form-group
-						label="页面名称"
+						:label="$t('content.page.name')"
 						label-for="page-name"
 					>
 						<b-form-input 
 							v-model="page.name"
-							placeholder="页面名称"
+							:placeholder="$t('content.page.placeholder')"
 							size="sm"
 						></b-form-input>
 					</b-form-group>
 					<b-form-group
-						label="页面路径"
+						:label="$t('content.page.path')"
 						label-for="page-path"
 					>
 						<b-form-input
 							id="page-path"
 							v-model="page.path"
 							size="sm"
-							placeholder="页面路径"
+							:placeholder="$t('content.page.path')"
 						></b-form-input>
 					</b-form-group>
-					<b-form-group label="页面版块" label-for="page-section">
+					<b-form-group :label="$t('content.page.section')" label-for="page-section">
 						<b-form-checkbox-group
 							id="page-section"
+							switches
 							v-model="page.sectionList"
-							:options="sectionOptions" switches
+							:options="sectionOptions" 
 						></b-form-checkbox-group>
 					</b-form-group>
-					<b-btn class="mr-2" size="sm" @click="reset">重置</b-btn>
-					<b-btn v-if="selectedPage === null" class="mr-2" variant="primary" size="sm" @click="submit">创建</b-btn>
-					<b-btn v-else class="mr-2" variant="success" size="sm" @click="putPage">更新</b-btn>
 					<b-form-group 
-						label="页面描述"
+						:label="$t('content.page.comment')"
 						label-for="page-comment"
 						class="mt-3"
 					>
 						<b-form-textarea 
 							id="page-comment"
 							v-model="page.comment"
-							rows="7" size="sm"
+							rows="7" 
+							size="sm"
+							:placeholder="$t('content.page.placeholder')"
 						></b-form-textarea>
 					</b-form-group>
+					<b-btn v-if="selectedPage === null" class="mr-2 pull-right" variant="primary" size="sm" @click="submit">{{$t('content.page.submit')}}</b-btn>
+					<b-btn v-else class="mr-2 pull-right" variant="success" size="sm" @click="putPage">{{$t('content.page.update')}}</b-btn>
+					<b-btn class="mr-2 pull-right" size="sm" @click="reset">{{$t('content.page.reset')}}</b-btn>
 				</b-card>
 			</b-col>
 			<b-col>
@@ -55,8 +58,8 @@
 						class="ml-auto"
 					>
 						<b-pagination
-							size="sm"
 							v-model="curPage"
+							size="sm"
 							:per-page="perPage"
 							:total-rows="rows"
 							class="mb-0"
@@ -64,9 +67,9 @@
 					</b-col>
 				</b-row>
 				<delete-modal
-					model-title="删除页面"
-					message="确认删除该页面?"
-				 @ok="deleted"></delete-modal>
+					:model-title="$t('content.page.deleteModal.title')"
+					:message="$t('content.page.deleteModal.msg')"
+					@ok="deleted"></delete-modal>
 				<b-table
 					id="page"
 					hover
@@ -79,6 +82,9 @@
 						{ key: 'action', label: '操作'}
 					]"
 				>
+					<template slot="HEAD_name">{{$t('content.page.name')}}</template>
+					<template slot="HEAD_path">{{$t('content.page.path')}}</template>
+					<template slot="HEAD_action">{{$t('content.page.action')}}</template>
 					<template slot="name" slot-scope="data">
 						<b-button
 							@click="getPage(data.item.id)"
@@ -110,7 +116,7 @@ function createPage() {
 		path: '',
 		comment: '',
 		sectionList: []
-	}
+	};
 }
 
 export default {
@@ -136,11 +142,8 @@ export default {
 				return {
 					text: name, value: id
 				};
-			})
+			});
 		},
-		title() {
-			return this.selectedPage !== null ? '更新页面' : '创建页面';
-		}
 	},
 	methods: {
 		getSectionList() {

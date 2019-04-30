@@ -1,7 +1,7 @@
-<template>
+z<template>
 	<b-container fluid>
-		<h1>版块管理</h1>
-		<b-card title="创建版块">
+		<h1 class="mb-5">{{$t('content.section.title')}}</h1>
+		<b-card :title="$t('content.section.create')">
 			<b-form ref="createdSection">
 				<b-row>
 					<b-col
@@ -9,19 +9,19 @@
 						cols="auto"
 					>
 						<b-form-group
-							label="版块名称"
+							:label="$t('content.section.name')"
 							label-for="section-name"
 						>
 							<b-form-input
 								id="section-name"
 								v-model="section.name"
-								placeholder="板块名称"
+								:placeholder="$t('content.section.name')"
 							></b-form-input>
 						</b-form-group>
 					</b-col>
 					<b-col class="custom-col" cols="auto">
 						<b-form-group
-							label="版块版式"
+							:label="$t('content.section.format')"
 							label-for="section-format"
 						>
 							<b-form-select
@@ -35,7 +35,7 @@
 				<b-row>
 					<b-col>
 							<b-form-group
-								label="配置信息"
+								:label="$t('content.section.configInfo')"
 								label-for="section-collection"
 							>
 								<b-form-textarea 
@@ -47,13 +47,13 @@
 					</b-col>
 					<b-col>
 						<b-form-group 
-							label="版块描述" 
+							:label="$t('content.section.comment')" 
 							label-for="section-comment"
 						>
 							<b-form-textarea 
 								id="section-comment"
 								v-model="section.comment"
-								placeholder="请输入版块描述"
+								:placeholder="$t('content.section.placeholder')"
 								rows="2"
 								></b-form-textarea>
 						</b-form-group>
@@ -62,12 +62,12 @@
 				<b-row>
 					<b-col>
 						<span v-if="isError" class="pull-left text-danger">
-							版块创建失败！
+							{{$t('content.section.errorMsg')}}
 						</span>
 					</b-col>
 					<b-col class="ml-auto pull-right" cols="auto">
-						<b-button class="mr-2" @click="reset(section)">重置</b-button>
-						<b-button class="mr-2" variant="primary" @click="onSubmit">创建</b-button>
+						<b-button class="mr-2" @click="reset(section)">{{$t('content.section.reset')}}</b-button>
+						<b-button class="mr-2" variant="primary" @click="onSubmit">{{$t('content.section.submit')}}</b-button>
 					</b-col>
 				</b-row>
 			</b-form>
@@ -87,14 +87,14 @@
 		<b-modal 
 			id="item-detail"
 			centered
-			ok-title="修改"
-			cancel-title="取消"
-			title="版块管理"
+			:ok-title="$t('content.section.updateModal.update')"
+			:cancel-title="$t('content.section.cancel')"
+			:title="$t('content.section.updateModal.title')"
 			@ok="updateSectionById()"
 		>
 			<b-form-group
 				label-for="section-name"
-				label="版块名称"
+				:label="$t('content.section.name')"
 			>
 				<b-form-input 
 					id="section-name"
@@ -104,7 +104,7 @@
 			</b-form-group>
 
 			<b-form-group
-				label="版块版式"
+				:label="$t('content.section.format')"
 				label-for="section-format"
 			>
 				<b-form-select 
@@ -116,7 +116,7 @@
 			</b-form-group>
 
 			<b-form-group
-				label="配置信息"
+				:label="$t('content.section.configInfo')"
 				label-for="format-collection"
 			>
 				<b-form-textarea 
@@ -127,21 +127,21 @@
 				></b-form-textarea>
 			</b-form-group>
 			<b-form-group 
-				label="版块描述" 
+				:label="$t('content.section.comment')"
 				label-for="section-comment"
 			>
 				<b-form-textarea 
 					id="section-comment"
 					v-model="sectionById.comment"
-					placeholder="请输入版块描述"
+					:placeholder="$t('content.section.placeholder')"
 					rows="3"
 					size="sm"
 					></b-form-textarea>
 			</b-form-group>
 		</b-modal>
 		<delete-modal
-			model-title="版块删除"
-			message="确认删除该版块?"
+			:model-title="$t('content.section.deleteModal.title')"
+			:message="$t('content.section.deleteModal.msg')"
 			@ok="deleteSection(deleteId)"
 		></delete-modal>
 		<b-table 
@@ -156,7 +156,10 @@
 				{ key: 'createdAt', label: '创建时间', sortable: true },
 				{ key: 'action', label: '操作' }
 			]"
-		>
+		>	
+			<template slot="HEAD_name">{{$t('content.section.name')}}</template>
+			<template slot="HEAD_createdAt">{{$t('content.section.createdAt')}}</template>
+			<template slot="HEAD_action">{{$t('content.section.action')}}</template>
 			<template slot="name" slot-scope="data">
 				<b-button
 					v-b-modal.item-detail

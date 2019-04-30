@@ -7,33 +7,33 @@
 		<div id="sidebar">
 			<menu-item 
 				has-sub 
-				name="文章管理" 
+				:name="$t('sidebar.article.name')" 
 				:sub-items="[
-					{ name: '文章列表', url: '/#/article'},
-					{ name: '创建文章', url: '/#/article/add' },
-					{ name: '批量删除', url: '/#/article/batch' }
+					{ name: $t('sidebar.article.list'), url: '/#/article'},
+					{ name: $t('sidebar.article.create'), url: '/#/article/add' },
+					{ name: $t('sidebar.article.delete'), url: '/#/article/batch' }
 				]"
 			>
 				{{ sub-items }}
 			</menu-item>
 			<menu-item
-				name="类别管理"
+				:name="$t('sidebar.category.name')"
 				url="/#/category"
 			></menu-item>
 			<menu-item
-				name="文件上传管理"
+				:name="$t('sidebar.upload.name')"
 				url="/#/upload"
 			></menu-item>
 			<menu-item
-				name="版块管理"
+				:name="$t('sidebar.section.name')"
 				url="/#/section"
 			></menu-item>
 			<menu-item
-				name="版式管理"
+				:name="$t('sidebar.format.name')"
 				url="/#/format"
 			></menu-item>
 			<menu-item
-				name="页面管理"
+				:name="$t('sidebar.page.name')"
 				url="/#/page"
 			></menu-item>
 		</div>

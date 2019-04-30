@@ -1,30 +1,30 @@
 <template>
 	<b-container fluid>
-		<h1>类别管理</h1>
+		<h1 class="mb-5">{{$t('content.category.title')}}</h1>
 		<delete-modal
-			model-title="版块删除"
-			message="确认删除该版块?"
+			:model-title="$t('content.category.deleteModal.title')"
+			:message="$t('content.category.deleteModal.msg')"
 			@ok="deleteCategory(deleteId)"
 		></delete-modal>
 		<b-row>
 			<b-col cols="8">
-				<b-card title="基本信息">
+				<b-card :title="$t('content.category.baseInfo')">
 					<b-row>
 						<b-col>
 							<b-form-group
-								label="类别名称"
+								:label="$t('content.category.name')"
 								label-for="category-name"
 							>
 								<b-form-input 
 									id="category-name"
 									v-model="category.name"
-									placeholder="类别名称"
+									:placeholder="$t('content.category.name')"
 								></b-form-input>
 							</b-form-group>
 						</b-col>
 						<b-col>
 							<b-form-group
-								label="所属父类"
+								:label="$t('content.category.parent')"
 								label-for="category-parent"
 							>
 								<b-form-select
@@ -38,30 +38,30 @@
 					<b-row>
 						<b-col>
 							<b-form-group
-								label="类别描述"
+								:label="$t('content.category.comment')"
 								label-for="category-comment"
 							>
 								<b-form-textarea 
 									id="category-comment"
 									v-model="category.comment"
 									rows="3"
-									placeholder="请输入类别描述"
+									:placeholder="$t('content.category.commentPlaceholder')"
 								></b-form-textarea>
 							</b-form-group>
 						</b-col>
 					</b-row>
 					<b-row>
 						<b-col class="ml-auto" cols="auto">
-							<b-btn v-if="isCreate" @click="reset">重置</b-btn>
-							<b-btn v-if="isCreate" variant="primary" @click="onSubmit">创建</b-btn>
-							<b-btn v-if="!isCreate" @click="back">返回创建</b-btn>
-							<b-btn v-if="!isCreate" variant="primary" @click="updateCategoryById()">更新</b-btn>
+							<b-btn v-if="isCreate" @click="reset">{{$t('content.category.reset')}}</b-btn>
+							<b-btn v-if="isCreate" variant="primary" @click="onSubmit">{{$t('content.category.create')}}</b-btn>
+							<b-btn v-if="!isCreate" @click="back">{{$t('content.category.back')}}</b-btn>
+							<b-btn v-if="!isCreate" variant="primary" @click="updateCategoryById()">{{$t('content.category.update')}}</b-btn>
 						</b-col>
 					</b-row>
 				</b-card>
 			</b-col>
 			<b-col cols="4">
-				<b-card title="类别列表" style="height: 338px"> 
+				<b-card :title="$t('content.category.list')" style="height: 338px"> 
 					<b-pagination
 							v-model="curPage"
 							small
@@ -83,6 +83,8 @@
 						]"
 						:items="categoryList"
 					>
+						<template slot="HEAD_name">{{$t('content.category.name')}}</template>
+						<template slot="HEAD_parent">{{$t('content.category.parent')}}</template>
 						<template slot="name" slot-scope="data">
 							<b-btn
 								variant="link"
@@ -147,7 +149,7 @@ export default {
 		},
 		categoryTree() {
 			return {
-				id: 0, label: '类别', children: this.contructTree()
+				id: 0, label: 'root', children: this.contructTree()
 			};
 		}
 	},
@@ -166,7 +168,7 @@ export default {
 						children: []
 					};
 
-					info.children = this.contructTree(category.hash)
+					info.children = this.contructTree(category.hash);
 
 					tree.push(info);
 				}
@@ -253,4 +255,3 @@ export default {
 	}
 };
 </script>
-

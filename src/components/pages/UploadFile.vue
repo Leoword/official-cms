@@ -1,12 +1,11 @@
 <template>
 	<b-container fluid id="file">
-		<h1 class="mb-5">文件上传管理</h1>
+		<h1 class="mb-5">{{$t('content.upload.title')}}</h1>
 		<div class="clearfix float-left" style="width: 40%">
 			<div class="clearfix">
 				<b-form-file
 					v-model="file" style="display: inline; width: auto"
 					:state="Boolean(file)"
-					placeholder="请选择文件"
 					size="sm" plain
 				/>
 				<b-button 
@@ -14,29 +13,29 @@
 					size="sm"
 					variant="success"
 					@click="getBlob" 
-				>预览</b-button>
+				>{{$t('content.upload.preview')}}</b-button>
 				<b-button 
 					class="mr-2" 
 					size="sm"
 					variant="danger"
-					@click="resize">裁剪</b-button>
+					@click="resize">{{$t('content.upload.crop')}}</b-button>
 			</div>
 			<div class="file-preview mt-3">
 				<vueCropper
 					ref="cropper"
-					:img="option.img"
 					:outputSize="option.size"
 					:outputType="option.outputType"
 					:canMove="false"
 					:autoCropWidth="200"
 					:autoCropHeight="200"
 					:centerBox="option.centerBox"
+					:img="option.img"
 				></vueCropper>
-				<b-button class="my-2 pull-right" variant="primary" size="sm" @click="onSubmit">上传</b-button>
+				<b-button class="my-2 pull-right" variant="primary" size="sm" @click="onSubmit">{{$t('content.upload.submit')}}</b-button>
 			</div>
 		</div>
 		<div class="ml-3 float-right" style="width: 56%">
-			<h4>文件列表</h4>
+			<h4>{{$t('content.upload.list')}}</h4>
 			<div v-if="list.length !== 0">
 				<div class="clearfix">
 					<div class="float-left">
@@ -45,8 +44,8 @@
 					</div>
 					<div class="float-right">
 						<b-pagination
-							size="sm"
 							v-model="currentPage"
+							size="sm"
 							:total-rows="rows"
 							:per-page="perPage"
 						></b-pagination>
@@ -56,8 +55,8 @@
 					style="width: 23%" no-body class="float-left mr-3 my-3"
 					:img-src="`${file.url}`" img-top>
 					<b-card-text>
-						<p class="px-2 mb-0">类型：{{file.type}}</p>
-						<p class="px-2 mb-0">路径： {{file.url}}</p>
+						<p class="px-2 mb-0">{{$t('content.upload.category')}}{{file.type}}</p>
+						<p class="px-2 mb-0">{{$t('content.upload.path')}} {{file.url}}</p>
 						<p class="px-2 mb-0 text-right">
 							<i 
 								v-b-modal.delete-item
@@ -71,8 +70,8 @@
 			</div>
 		</div>
 		<delete-modal
-			model-title="删除文件"
-			message="确认删除该文件?"
+			:model-title="$t('content.upload.deleteModal.title')"
+			:message="$t('content.upload.deleteModal.msg')"
 			@ok="deleted"
 		></delete-modal>
 	</b-container>
@@ -144,7 +143,7 @@ export default {
 
 			reader.onload = ({target}) => {
 				this.option.img = target.result;
-			}
+			};
 			
 			reader.readAsDataURL(this.file);
 		},

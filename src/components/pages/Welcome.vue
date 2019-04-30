@@ -1,8 +1,8 @@
 <template>
 	<b-container fluid>
 		<b-jumbotron 
-			header="后台管理系统"
-			lead="欢迎登录使用！" 
+			:header="$t('content.welcome.header')"
+			:lead="$t('content.welcome.lead')" 
 		/>
 	</b-container>
 </template>

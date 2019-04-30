@@ -1,7 +1,7 @@
 <template>
 	<b-container fluid>
-		<h1>版式管理</h1>
-		<b-card title="创建版式">
+		<h1>{{ $t('content.format.title') }}</h1>
+		<b-card :title="$t('content.format.create')">
 			<b-form ref="createdFormat">
 				<b-row>
 					<b-col 
@@ -9,13 +9,13 @@
 						cols="auto"
 					>
 						<b-form-group
-							label="版式名称"
+							:label="$t('content.format.name')"
 							label-for="format-name"
 						>
 							<b-form-input
 								id="format-name"
 								v-model="format.name"
-								placeholder="版式名称"
+								:placeholder="$t('content.format.name')"
 							></b-form-input>
 						</b-form-group>
 					</b-col>
@@ -23,13 +23,13 @@
 				<b-row>
 					<b-col>
 						<b-form-group
-							label="版式描述"
+							:label="$t('content.format.comment')"
 							label-for="format-comment"
 						>
 							<b-form-textarea 
 								id="format-comment"
 								v-model="format.comment"
-								placeholder="请输入版式描述"
+								:placeholder="$t('content.format.placeholder')"
 								rows="3"
 							></b-form-textarea>
 						</b-form-group>
@@ -38,18 +38,17 @@
 				<b-row>
 					<b-col cols="auto">
 						<span v-if="createError" class="pull-left text-danger">
-							版式创建失败！
+							{{$t('content.format.errorMsg')}}
 						</span>
 					</b-col>
 					<b-col class="ml-auto pull-right" cols="auto">
 						<b-button 
 							class="mr-2" 
-							@click="reset(format)"
-						>重置</b-button>
+							@click="reset(format)">{{$t('content.format.reset')}}</b-button>
 						<b-button 
 							class="mr-2" 
 							variant="primary"
-							@click="onSubmit">确定</b-button>
+							@click="onSubmit">{{$t('content.format.submit')}}</b-button>
 					</b-col>
 				</b-row>
 			</b-form>
@@ -57,13 +56,13 @@
 		<b-modal 
 			id="item-detail"
 			centered
-			ok-title="修改"
-			cancel-title="取消"
-			title="版式详情"
+			:ok-title="$t('content.format.update')"
+			:cancel-title="$t('content.format.cancel')"
+			:title="$t('content.format.detail')"
 			@ok="updateFormatById()"
 		>
 			<b-form-group
-				label="版式名称"
+				:label="$t('content.format.name')"
 				label-for="format-name"
 			>
 				<b-form-input
@@ -73,7 +72,7 @@
 				></b-form-input>
 			</b-form-group>
 			<b-form-group
-				label="版式描述"
+				:label="$t('content.format.comment')"
 				label-for="format-comment"
 			>
 				<b-form-textarea 
@@ -88,8 +87,8 @@
 			</span>
 		</b-modal>
 		<delete-modal
-			model-title="版式删除"
-			message="确认删除该版式?"
+			:model-title="$t('content.format.deteleModal.title')"
+			:message="$t('content.format.deteleModal.msg')"
 			@ok="deleteFormat(deleteId)"
 		></delete-modal>
 		<b-row class="my-2">
@@ -118,6 +117,9 @@
 			]"
 			:items="formatList"
 		>
+			<template slot="HEAD_name">{{$t('content.format.name')}}</template>
+			<template slot="HEAD_createdAt">{{$t('content.format.createdAt')}}</template>
+			<template slot="HEAD_action">{{$t('content.format.action')}}</template>
 			<template slot="name" slot-scope="data">
 				<b-button
 					v-b-modal.item-detail

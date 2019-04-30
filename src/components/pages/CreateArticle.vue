@@ -31,6 +31,9 @@ export default {
 			return this.$route.query.articleId;
 		}
 	},
+	mounted() {
+		this.getCategoryList();
+	},
 	methods: {
 		createArticle(language) {
 			this.article.language = language;
@@ -61,9 +64,6 @@ export default {
 			});
 		}
 	},
-	mounted() {
-		this.getCategoryList();
-	}
 };
 </script>
 

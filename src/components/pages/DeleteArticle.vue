@@ -1,41 +1,41 @@
 <template>
 	<b-container fluid>
-		<h1>文章批量删除</h1>
+		<h1 class="mb-5">{{$t('content.deleteArticle.title')}}</h1>
 		<b-modal 
 			v-if="selectedItems"
 			id="modal-center" 
 			centered 
-			title="删除文章"
-			ok-title="删除"
-			cancel-title="取消"
+			:title="$t('content.deleteArticle.deleteModal.title')"
+			:ok-title="$t('content.deleteArticle.deleteModal.ok')"
+			:cancel-title="$t('content.deleteArticle.deleteModal.cancel')"
 			@ok="deleteArticle"
 		>
-			<p class="my-4">确认删除所选中的文章?</p>
+			<p class="my-4">{{$t('content.deleteArticle.deleteModal.msg')}}</p>
 		</b-modal>
 		<b-row>
-			<b-col cols="2">
+			<b-col cols="3">
 				<b-form-group
-					label="关键字"
+					:label="$t('content.deleteArticle.keyword')"
 					label-for="key"
-					label-cols-sm="4"
+					label-cols-sm="3"
 					label-align-sm="left"
 				>
 					<b-form-input 
 						id="key" 
 						v-model="filterByKey"
 						size="sm" 
-						placeholder="请输入关键字"
+						:placeholder="$t('content.deleteArticle.keywordPlaceholder')"
 					></b-form-input>
 				</b-form-group>
 			</b-col>
 			<b-col cols="4">
-				<b-button size="sm" @click="reset">重置</b-button>
-				<b-button size="sm" type="submit" variant="primary">查询</b-button>
+				<b-button size="sm" @click="reset">{{$t('content.deleteArticle.reset')}}</b-button>
+				<b-button size="sm" type="submit" variant="primary">{{$t('content.deleteArticle.search')}}</b-button>
 				<b-button
 					v-b-modal.modal-center 
 					size="sm"
 					variant="danger"
-				>批量删除
+				>{{$t('content.deleteArticle.submit')}}
 					<b-badge v-if="selectedItems !== 0" variant="light">{{ selectedItems }}</b-badge>
 				</b-button>
 			</b-col>
@@ -62,7 +62,7 @@
 			:fields="[
 				{ key: 'checkbox', label: '' },
 				{ key: 'title', label: '文章标题', sortable: true },
-				{ key: 'date', label: '发表时间', sortable: true }
+				{ key: 'createdAt', label: '发表时间', sortable: true }
 			]"
 			@sort-changed="toggleNone"
 			>
@@ -73,7 +73,12 @@
 					@change="toggleAll"
 				></b-form-checkbox>
 			</template>
-			
+			<template slot="HEAD_title">
+				{{$t('content.deleteArticle.table.title')}}
+			</template>
+			<template slot="HEAD_createdAt">
+				{{$t('content.deleteArticle.table.createdAt')}}
+			</template>
 			<template slot="checkbox" slot-scope="data">
 				<b-form-checkbox
 					v-model="itemSelected"
@@ -81,10 +86,10 @@
 					/>
 			</template>
 			<template slot="title" slot-scope="data">
-				{{ data.index + 1 }} - {{ data.item.title }}
+				{{ data.item.title }}
 			</template>
-			<template slot="date" slot-scope="data">
-				{{ data.item.date }}
+			<template slot="createdAt" slot-scope="data">
+				{{ data.item.createdAt }}
 			</template>
 		</b-table>
 	</b-container>

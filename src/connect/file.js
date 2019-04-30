@@ -20,4 +20,4 @@ export default {
 	delete(id) {
 		return axios.delete(`${baseURL}/file/${id}`);
 	}
-}
+};

@@ -9,6 +9,7 @@ import BootstrapVue from 'bootstrap-vue';
 
 import App from './App.vue';
 import router from './router';
+import i18n from './components/i18n';
 
 import apiConnect from './connect';
 
@@ -16,6 +17,6 @@ Vue.use(BootstrapVue);
 
 Vue.prototype.$api = apiConnect;
 
-const app = new Vue(Object.assign({ router }, App));
+const app = new Vue(Object.assign({ router, i18n }, App));
 
 window.addEventListener('load', () => app.$mount('#app'));

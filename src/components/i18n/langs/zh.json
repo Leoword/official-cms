@@ -1,0 +1,195 @@
+{
+	"navigation": {
+		"title": "Or-Change后台管理系统",
+		"lang": "语言",
+		"user": {
+			"name": "用户",
+			"help": "帮助",
+			"exit": "退出"
+		}
+	},
+	"sidebar": {
+		"article": {
+			"name": "文章管理",
+			"list": "文章列表",
+			"create": "创建文章",
+			"delete": "批量删除"
+		},
+		"category": {
+			"name": "类别管理"
+		},
+		"upload": {
+			"name": "文件上传管理"
+		},
+		"section": {
+			"name": "版块管理"
+		},
+		"format": {
+			"name": "版式管理"
+		},
+		"page": {
+			"name": "页面管理"	
+		}
+	},
+	"content": {
+		"welcome": {
+			"header": "后台管理系统",
+			"lead": "欢迎登录使用！"
+		},
+		"articleList": {
+			"title": "文章列表",
+			"keyword": "关键字",
+			"keywordPlaceholder": "请输入关键字",
+			"reset": "重置",
+			"discovery": "查询",
+			"table": {
+				"title": "文章标题",
+				"sortBy": {
+					"name": "排序方式",
+					"asc": "创建时间升序排列",
+					"desc": "创建时间降排列"
+				},
+				"category": "分类",
+				"lang": "语言",
+				"author": "作者",
+				"createdBy": "创建于"
+			}
+		},
+		"createArticle": {
+			"title": "文章题目",
+			"lang": "语言",
+			"category": "分类",
+			"abstract": {
+				"name": "文章摘要",
+				"placeholder": "请输入文章摘要",
+				"submit": "Done"
+			},
+			"submit": "上传",
+			"categoryState": {
+				"unselect": "未选择",
+				"selected": "已选择"
+			},
+			"abstractState": {
+				"unedit": "未编辑",
+				"edited": "已编辑"
+			},
+			"placeholder": "## 请开始编辑文章"
+		},
+		"deleteArticle": {
+			"title": "文章批量删除",
+			"keyword": "关键字",
+			"keywordPlaceholder": "请输入关键字",
+			"reset": "重置",
+			"search": "查询",
+			"submit": "批量删除",
+			"table": {
+				"title": "文章标题",
+				"createdAt": "发表时间"
+			},
+			"deleteModal": {
+				"title": "删除文章",
+				"msg": "确认删除已选中文章?",
+				"ok": "删除",
+				"cancel": "取消"
+			}
+		},
+
+		"category": {
+			"title": "类别管理",
+			"baseInfo": "基本信息",
+			"name": "类别名称",
+			"parent": "所属父类",
+			"comment": "类别描述",
+			"list": "类别列表",
+			"action": "操作",
+			"parentPlaceholder": "请选择父类",
+			"commentPlaceholder": "请输入类别描述",
+			"deleteModal": {
+				"title": "删除类别",
+				"msg": "确认删除改类别?",
+				"ok": "确认",
+				"cancel": "取消"
+			},
+			"reset": "重置",
+			"create": "创建",
+			"update": "更新",
+			"back": "返回创建"
+		},
+		"upload": {
+			"title": "文件上传管理",
+			"selcetFile": "选择文件",
+			"preview": "预览",
+			"crop": "裁剪",
+			"submit": "上传",
+			"list": "文件列表",
+			"category": "类别:",
+			"path": "路径:",
+			"deleteModal": {
+				"title": "删除文件",
+				"msg": "确认删除该文件?"
+			}
+		},
+		"section": {
+			"title": "版块管理",
+			"create": "创建版块",
+			"name": "版式名称",
+			"format": "版式版块",
+			"comment": "版式描述",
+			"configInfo": "配置信息",
+			"placeholder": "请输入版块描述",
+			"detail": "版块详情",
+			"reset": "重置",
+			"submit": "创建",
+			"update": "更新",
+			"createdAt": "创建时间",
+			"action": "操作",
+			"errorMsg": "创建版块失败!",
+				"cancel": "取消",
+				"updateModal": {
+					"update": "更新",
+					"title": "版块详情"
+				},
+				"deleteModal": {
+					"title": "删除版块",
+					"msg": "确认删除该板块?"
+	
+				}
+		},
+		"format": {
+			"title": "版式管理",
+			"create": "创建版式",
+			"name": "版式名称",
+			"comment": "版式描述",
+			"placeholder": "请输入版式描述",
+			"reset": "重置",
+			"submit": "创建",
+			"action": "操作",
+			"update": "更新",
+			"detail": "版式详情",
+			"createdAt": "创建时间",
+			"errorMsg": "版式创建失败!",
+				"cancel": "取消",
+				"deteleModal": {
+					"title": "删除版式",
+					"msg": "确认删除该版式?"
+				}
+		},
+		"page": {
+			"title": "页面管理",
+			"create": "创建页面",
+			"name": "页面名称",
+			"path": "页面路径",
+			"comment": "页面描述",
+			"placeholder": "请输入页面描述",
+			"section": "页面版块",
+			"reset": "重置",
+			"submit": "创建",
+			"update": "更新",
+			"action": "操作",
+			"deleteModal": {
+				"title": "删除页面",
+				"msg": "确认删除该页面?"
+			}
+		}
+	}
+}

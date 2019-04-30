@@ -4,23 +4,23 @@
 			<b-col cols="5">
 				<b-form-group
 					label-for="article-title"
-					label-cols-sm="2"
+					label-cols-sm="3"
 					label-align-sm="right"
-					label="文章题目:"
+					:label="$t('content.createArticle.title')"
 				>
 					<b-form-input
 							id="article-title"
 							v-model="article.title"
 							size="sm"
-							placeholder="文章题目"
+							:placeholder="$t('content.createArticle.title')"
 						></b-form-input>
 				</b-form-group>
 			</b-col>
 			<b-col cols="3">
 				<b-form-group
-					label="语言:"
+					:label="$t('content.createArticle.lang')"
 					label-for="language"
-					label-cols-sm="2"
+					label-cols-sm="3"
 					label-align-sm="right"
 				>
 					<b-form-select
@@ -36,12 +36,12 @@
 					<b-col cols="auto">
 						<b-badge 
 							v-if="selectedState === 0"
-							variant="warning">未选择</b-badge>
+							variant="warning">{{$t('content.createArticle.categoryState.unselect')}}</b-badge>
 						<b-badge 
 							v-else
-							variant="success">已选择</b-badge>
+							variant="success">{{$t('content.createArticle.categoryState.selected')}}</b-badge>
 						<b-dropdown 
-							text="分类" 
+							:text="$t('content.createArticle.category')" 
 							variant="link"
 							>
 							<b-form-group>
@@ -56,15 +56,15 @@
 						<b-badge 
 							v-if="editState === 0" 
 							variant="warning"
-							>未编辑</b-badge>
+							>{{$t('content.createArticle.abstractState.unedit')}}</b-badge>
 						<b-badge 
 							v-else
 							variant="success"
-							>已编辑</b-badge>
+							>{{$t('content.createArticle.abstractState.edited')}}</b-badge>
 						<b-dropdown 
 							id="abstract" 
 							ref="dropdown" 
-							text="文章摘要" 
+							:text="$t('content.createArticle.abstract.name')" 
 							variant="link"
 						>
 							<b-dropdown-form 
@@ -74,21 +74,20 @@
 									id="textarea"
 									v-model="article.abstract"
 									size="sm"
-									placeholder="请输入文章摘要" 
+									:placeholder="$t('content.createArticle.abstract.placeholder')" 
 									rows="5" 
 									style="display: block;width: 100%"
 								/>
 								<b-button 
 									variant="primary" 
 									size="sm"
-									class="pull-right" 
-									@click="onClick">完成</b-button>
+									class="mt-2 pull-right" 
+									@click="onClick">{{$t('content.createArticle.abstract.submit')}}</b-button>
 							</b-dropdown-form>
 						</b-dropdown>
 					</b-col>
 					<b-col cols="auto">
-						<b-btn size="sm">重置</b-btn>
-						<b-btn size="sm" variant="primary" @click="upload">上传</b-btn>
+						<b-btn size="sm" variant="primary" @click="upload">{{$t('content.createArticle.submit')}}</b-btn>
 					</b-col>
 				</b-row>
 			</b-col>
@@ -225,7 +224,7 @@ export default {
 		},
 		upload() {
 			this.$emit('upload-article', this.languageOptions.selected);
-		}
+		},
 	}
 };
 </script>

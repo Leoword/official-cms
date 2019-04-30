@@ -1,0 +1,193 @@
+{
+	"navigation": {
+		"title": "Or-Change Backstage Management System",
+		"lang": "Language",
+		"user": {
+			"name": "User",
+			"help": "help",
+			"exit": "exit"
+		}
+	},
+	"sidebar": {
+		"article": {
+			"name": "Article Management",
+			"list": "Article List",
+			"create": "Create Article",
+			"delete": "Article Batches Delete"
+		},
+		"category": {
+			"name": "Category Management"
+		},
+		"upload": {
+			"name": "Upload Management"
+		},
+		"section": {
+			"name": "Section Management"
+		},
+		"format": {
+			"name": "Format Management"
+		},
+		"page": {
+			"name": "Page Management"
+		}
+	},
+	"content": {
+		"welcome": {
+			"header": "Backstage Management System",
+			"lead": "Welcome！"
+		},
+		"articleList": {
+			"title": "Article List",
+			"keyword": "Keyword",
+			"keywordPlaceholder": "pleace input keyword",
+			"reset": "Reset",
+			"discovery": "Search",
+			"table": {
+				"title": "Article Title",
+				"sortBy": {
+					"name": "sort",
+					"asc": "Newest",
+					"desc": "Oldest"
+				},
+				"category": "category",
+				"lang": "language",
+				"author": "author",
+				"createdBy": "created by "
+			}
+		},
+		"createArticle": {
+			"title": "Article Title",
+			"lang": "Language",
+			"category": "Category",
+			"abstract": {
+				"name": "Abstract",
+				"placeholder": "please input the abstract of article",
+				"submit": "Done"
+			},
+			"submit": "submit",
+			"categoryState": {
+				"unselect": "unselect",
+				"selected": "selected"
+			},
+			"abstractState": {
+				"unedit": "unedit",
+				"edited": "edited"
+			},
+			"placeholder": "## please start editing the new article"
+		},
+		"deleteArticle": {
+			"title": "Article Batches Delete",
+			"keyword": "Keyword",
+			"keywordPlaceholder": "pleace input keyword",
+			"reset": "Reset",
+			"search": "Search",
+			"submit": "Batches Delete",
+			"table": {
+				"title": "Article Title",
+				"createdAt": "Creation Date"
+			},
+			"deleteModal": {
+				"title": "Delete Article",
+				"msg": "Are you sure delete the selected articles?",
+				"ok": "Done",
+				"cancel": "Cancel"
+			}
+		},
+		"category": {
+			"title": "Category Management",
+			"baseInfo": "Basic Information",
+			"name": "Category Name",
+			"parent": "Parent Class",
+			"comment": "Category Comment",
+			"list": "Category List",
+			"action": "Action",
+			"parentPlaceholder": "place select the parent class",
+			"commentPlaceholder": "pleace input the comment of category",
+			"deleteModal": {
+				"title": "Delete Category",
+				"msg": "Are you sure delete this category?",
+				"ok": "Done",
+				"cancel": "Cancel"
+			},
+			"reset": "Reset",
+			"create": "Create",
+			"update": "Update",
+			"back": "Back to Creation"
+		},
+		"upload": {
+			"title": "File Upload Management",
+			"selcetFile": "Choose File",
+			"preview": "Preview",
+			"crop": "Crop",
+			"submit": "Upload",
+			"list": "File List",
+			"category": "Category:",
+			"path": "Path:",
+			"deleteModal": {
+				"title": "Delete File",
+				"msg": "Are you sure delete this file?"
+			}
+		},
+		"section": {
+			"title": "Section Management",
+			"create": "Create Section",
+			"name": "Section Name",
+			"format": "Format",
+			"comment": "Section Comment",
+			"configInfo": "Configuration Information",
+			"placeholder": "please input the comment of section",
+			"detail": "Section Detail",
+			"reset": "Reset",
+			"submit": "Create",
+			"createdAt": "Creation Date",
+			"action": "Action",
+			"errorMsg": "Section create failed!",
+			"cancel": "Cancel",
+			"updateModal": {
+				"update": "Update",
+				"title": "Section Detail"
+			},
+			"deleteModal": {
+				"title": "Delete Section",
+				"msg": "Are you sure delete this section?"
+
+			}
+		},
+		"format": {
+			"title": "Format Management",
+			"create": "Create Format",
+			"name": "Format Name",
+			"comment": "Format Comment",
+			"placeholder": "please input the comment of format",
+			"reset": "Reset",
+			"submit": "Create",
+			"action": "Action",
+			"update": "Update",
+			"createdAt": "Creation Date",
+			"errorMsg": "Format create failed!",
+			"cancel": "Cancel",
+			"detail": "Format Detail",
+			"deteleModal": {
+				"title": "Delete Format",
+				"msg": "Are you sure delete this format?"
+			}
+		},
+		"page": {
+			"title": "Page Management",
+			"create": "Create Page",
+			"name": "Page Name",
+			"path": "Page Path",
+			"comment": "Page Comment",
+			"placeholder": "please input the comment of page",
+			"section": "Page Section",
+			"reset": "Reset",
+			"submit": "Create",
+			"update": "Update",
+			"action": "Action",
+			"deteleModal": {
+				"title": "Delete Page",
+				"msg": "Are you sure delete this page?"
+			}
+		}
+	}
+}
