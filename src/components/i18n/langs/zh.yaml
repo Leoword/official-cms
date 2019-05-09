@@ -1,0 +1,156 @@
+login:
+  title: '用户登录'
+  username: '用户名'
+  password: '密码'
+  reset: '重置'
+  lang: '切换语言'
+  submit: '登录'
+navigation: 
+  title: 'Or-Change后台管理系统'
+  lang: 
+    title: '语言'
+    zh: '中文'
+    en: '英语'
+  user: 
+    name: '用户'
+    exit: '退出'
+sidebar:
+  user:
+    title: '用户管理'
+  article:
+    title: '文章管理'
+    list: '文章列表'
+    create: '创建文章'
+    batch: '批量删除'
+  category:
+    title: '类别管理'
+  upload:
+    title: '文件上传管理'
+  section: 
+    title: '版块管理'
+  format:
+    title: '版式管理'
+  page:
+    title: '页面管理'
+content:
+  home: 
+    header: '后台管理系统'
+    lead: '欢迎登录使用！'
+  article:
+    title: '文章标题'
+    lang: '语言'
+    category: '分类'
+    categoryState:
+      unselect: '未选择'
+      selected: '已选择'
+    abstract:
+      name: '摘要'
+      placeholder: '请输入文章摘要'
+      submit: '完成'
+    abstractState:
+      unedit: '未编辑'
+      edited: '已编辑'
+    placeholder: '## 请开始编辑新文章'
+    submit: '提交'
+  articleList:
+    title: '文章列表'
+    keyword: '关键字'
+    keywordPlaceholder: '请输入关键字'
+    reset: '重置'
+    search: '查询'
+    table:
+      title: '文章标题'
+      sortBy:
+        name: '排序方式'
+        asc: '创建时间升序排列'
+        desc: '创建时间降序排列'
+      category: '分类'
+      lang: '语言'
+      author: '作者'
+      createdBy: '创建于'
+  deleteArticle:
+    title: '文章批量删除'
+    keyword: 关键字
+    keywordPlaceholder: '请输入关键字'
+    reset: '重置'
+    search: '查询'
+    submit: '批量删除'
+    table:
+      title: '文章标题'
+      createdAt: '发表时间'
+    deleteModal:
+      title: '删除文章'
+      msg: '确认删除已选中文章?'
+      ok: '确认'
+      cancel: '取消'
+  category:
+    title: '类别管理'
+    baseInfo: '基本信息'
+    name: '类别名称'
+    parent: '所属父类'
+    comment: '类别描述'
+    list: '类别列表'
+    action: '操作'
+    default: '无'
+    parentPlaceholder: '请选择父类'
+    commentPlaceholder: '请输入类别描述'
+    deleteModal:
+      title: '删除类别'
+      msg: '确认删除该类别?'
+      ok: '确认'
+      cancel: '取消'
+    reset: '重置'
+    create: '创建'
+    update: '更新'
+    back: '返回创建'
+  upload:
+      title: '文件上传管理'
+      selectFile: '选择文件'
+      preview: '预览'
+      crop: '裁剪'
+      submit: '上传'
+      list: '文件列表'
+      category: '类别'
+      path: '路径'
+      deleteModal:
+        title: '删除文件'
+        msg: '确认删除该文件?'
+  page:
+    title: '页面管理'
+    baseInfo: '基本信息'
+    name: '页面名称'
+    config: '页面配置'
+    reset: '重置'
+    back: '返回创建'
+    create: '创建'
+    update: '更新'
+    action: '操作'
+    deleteModal:
+      title: '删除页面'
+      msg: '确认删除该页面?'
+    message:
+      createSuccess: '页面创建成功！'
+      createFailed: '页面创建失败！'
+      updateSuccess: '页面更新成功！'
+      updateFailed: '页面更新失败！'
+  user:
+    title: '用户管理'
+    submit: '创建'
+    username: '用户名'
+    password: '密码'
+    createdAt: '创建时间'
+    action: '操作'
+    ok: '确认'
+    cancel: '取消'
+    create: '创建'
+    update: '更新'
+    reset: '重置'
+    createTitle: '创建用户'
+    updateTitle: '更新用户'
+    deleteTitle: '删除用户'
+    deleteMsg: '确认删除该用户?'
+    message:
+      createSuccess: '用户创建成功！'
+      createFailed: '用户创建失败！'
+      updateSuccess: '用户更新成功！'
+      updateFailed: '用户更新失败！'

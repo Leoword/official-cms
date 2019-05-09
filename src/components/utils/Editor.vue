@@ -6,19 +6,19 @@
 					label-for="article-title"
 					label-cols-sm="3"
 					label-align-sm="right"
-					:label="$t('content.createArticle.title')"
+					:label="$t('content.article.title')"
 				>
 					<b-form-input
 							id="article-title"
 							v-model="article.title"
 							size="sm"
-							:placeholder="$t('content.createArticle.title')"
+							:placeholder="$t('content.article.title')"
 						></b-form-input>
 				</b-form-group>
 			</b-col>
 			<b-col cols="3">
 				<b-form-group
-					:label="$t('content.createArticle.lang')"
+					:label="$t('content.article.lang')"
 					label-for="language"
 					label-cols-sm="3"
 					label-align-sm="right"
@@ -36,12 +36,12 @@
 					<b-col cols="auto">
 						<b-badge 
 							v-if="selectedState === 0"
-							variant="warning">{{$t('content.createArticle.categoryState.unselect')}}</b-badge>
+							variant="warning">{{$t('content.article.categoryState.unselect')}}</b-badge>
 						<b-badge 
 							v-else
-							variant="success">{{$t('content.createArticle.categoryState.selected')}}</b-badge>
+							variant="success">{{$t('content.article.categoryState.selected')}}</b-badge>
 						<b-dropdown 
-							:text="$t('content.createArticle.category')" 
+							:text="$t('content.article.category')" 
 							variant="link"
 							>
 							<b-form-group>
@@ -56,15 +56,15 @@
 						<b-badge 
 							v-if="editState === 0" 
 							variant="warning"
-							>{{$t('content.createArticle.abstractState.unedit')}}</b-badge>
+							>{{$t('content.article.abstractState.unedit')}}</b-badge>
 						<b-badge 
 							v-else
 							variant="success"
-							>{{$t('content.createArticle.abstractState.edited')}}</b-badge>
+							>{{$t('content.article.abstractState.edited')}}</b-badge>
 						<b-dropdown 
 							id="abstract" 
 							ref="dropdown" 
-							:text="$t('content.createArticle.abstract.name')" 
+							:text="$t('content.article.abstract.name')" 
 							variant="link"
 						>
 							<b-dropdown-form 
@@ -74,7 +74,7 @@
 									id="textarea"
 									v-model="article.abstract"
 									size="sm"
-									:placeholder="$t('content.createArticle.abstract.placeholder')" 
+									:placeholder="$t('content.article.abstract.placeholder')" 
 									rows="5" 
 									style="display: block;width: 100%"
 								/>
@@ -82,12 +82,12 @@
 									variant="primary" 
 									size="sm"
 									class="mt-2 pull-right" 
-									@click="onClick">{{$t('content.createArticle.abstract.submit')}}</b-button>
+									@click="onClick">{{$t('content.article.abstract.submit')}}</b-button>
 							</b-dropdown-form>
 						</b-dropdown>
 					</b-col>
 					<b-col cols="auto">
-						<b-btn size="sm" variant="primary" @click="upload">{{$t('content.createArticle.submit')}}</b-btn>
+						<b-btn size="sm" variant="primary" @click="upload">{{$t('content.article.submit')}}</b-btn>
 					</b-col>
 				</b-row>
 			</b-col>

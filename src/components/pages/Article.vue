@@ -19,7 +19,7 @@
 			</b-col>
 			<b-col cols="3">
 				<b-btn size="sm" @click="reset">{{$t('content.articleList.reset')}}</b-btn>
-				<b-btn size="sm" type="submit" variant="primary">{{$t('content.articleList.discovery')}}</b-btn>
+				<b-btn size="sm" type="submit" variant="primary">{{$t('content.articleList.search')}}</b-btn>
 			</b-col>
 			<b-col cols="auto" class="ml-auto">
 				<b-pagination
@@ -102,7 +102,7 @@
 				>
 				<div>
 					<b-link :to="`/article/${data.item.hash}`">{{ data.item.title }}</b-link>
-					<span class="ml-5">{{$t('content.articleList.table.createdBy')}} {{data.item.date }}</span>
+					<span class="ml-5">{{$t('content.articleList.table.createdBy')}} {{ format(data.item.creaetdAt) }}</span>
 					<span class="ml-5">
 						<i 
 							class="fa fa-trash text-danger" style="font-size: 25px"

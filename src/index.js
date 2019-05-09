@@ -10,13 +10,17 @@ import BootstrapVue from 'bootstrap-vue';
 import App from './App.vue';
 import router from './router';
 import i18n from './components/i18n';
+import store from './store';
 
-import apiConnect from './connect';
+import api from './api';
+
+import mixin from './components/mixin';
 
 Vue.use(BootstrapVue);
+Vue.mixin(mixin);
 
-Vue.prototype.$api = apiConnect;
+Vue.prototype.$api = api;
 
-const app = new Vue(Object.assign({ router, i18n }, App));
+const app = new Vue(Object.assign({ router, i18n, store }, App));
 
 window.addEventListener('load', () => app.$mount('#app'));

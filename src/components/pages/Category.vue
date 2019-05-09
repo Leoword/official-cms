@@ -77,36 +77,34 @@
 						:current-page="curPage"
 						:per-page="perPage"
 						:fields="[
-							{ key: 'name', label: '类别名称'},
-							{ key: 'parent', label: '所属父类'},
-							{ key: 'action', label: ''}
+							{ key: 'name', label: $t('content.category.name')},
+							{ key: 'parent', label: $t('content.category.parent')},
+							{ key: 'action', label: $t('content.category.action')}
 						]"
 						:items="categoryList"
 					>
-						<template slot="HEAD_name">{{$t('content.category.name')}}</template>
-						<template slot="HEAD_parent">{{$t('content.category.parent')}}</template>
 						<template slot="name" slot-scope="data">
 							<b-btn
 								variant="link"
-								@click="getCategoryById(data.item.hash)"
+								@click="getCategoryById(data.item.id)"
 							>{{data.item.name}}</b-btn>
 						</template>
 						<template slot="parent" slot-scope="data">
-							{{ data.item.parent === null ? '无' : indexOf(data.item.parent)}}
+							{{ data.item.parent === null ? $t('content.category.default') : indexOf(data.item.parent)}}
 						</template>
 						<template slot="action" slot-scope="data">
 							<i 
 								v-b-modal.delete-item
 								class="fa fa-trash fa-lg text-danger"
 								aria-hidden="true"
-								@click="getCategoryId(data.item.hash)"
+								@click="getCategoryId(data.item.id)"
 							></i>
 						</template>
 					</b-table>
 				</b-card>
 			</b-col>
 		</b-row>
-		<b-card class="my-4" style="height: 580px; overflow: auto">
+		<b-card class="my-4" style="height: 430px; overflow: auto">
 			<vue2-org-tree
 				:data="categoryTree"
 				horizontal
@@ -162,13 +160,22 @@ export default {
 			const tree = [];
 
 			this.categoryList.forEach(category => {
+				if (!category.parent) {
+					tree.push({
+						id: category.id, label: category.name,
+						children: []
+					});
+
+					return;
+				}
+
 				if (category.parent === parent) {
 					const info = {
-						id: category.hash, label: category.name,
+						id: category.id, label: category.name,
 						children: []
 					};
 
-					info.children = this.contructTree(category.hash);
+					info.children = this.contructTree(category.id);
 
 					tree.push(info);
 				}
@@ -188,7 +195,7 @@ export default {
 			this.categoryOptions = [ {value: null, text: '请选择父类'} ];
 			return this.$api.category.getList().then(res => {
 				res.data.forEach(item => {
-					const option = { value: item.hash, text: item.name };
+					const option = { value: item.id, text: item.name };
 					this.categoryOptions.push(option);
 				});
 			});
@@ -220,7 +227,7 @@ export default {
 				this.category.name = res.data.name;
 				this.category.comment = res.data.comment;
 				this.category.parent = res.data.parent;
-				this.category.id = res.data.hash;
+				this.category.id = res.data.id;
 			}).then(() => {
 				this.isCreate = false;
 			});

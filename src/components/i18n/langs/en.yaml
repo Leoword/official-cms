@@ -1,0 +1,155 @@
+login:
+  title: 'Login'
+  username: 'Username'
+  password: 'Password'
+  reset: 'Reset'
+  lang: 'Switch'
+  submit: 'Login'
+navigation:
+  title: 'Or-Change Backstage Management System'
+  lang: 
+    title: 'Language'
+    zh: 'Chinese'
+    en: 'English'
+  user: 
+    name: 'User'
+    exit: 'Exit'
+sidebar:
+  user:
+    title: 'User Management'
+  article:
+    title: 'Article Management'
+    list: 'Article List'
+    create: 'Create Article'
+    batch: 'Article Batches Delete'
+  category:
+    title: 'Category Management'
+  upload:
+    title: 'Upload Management'
+  section: 
+    title: 'Section Management'
+  format:
+    title: 'Format Management'
+  page:
+    title: 'Page Management'
+content:
+  home: 
+    header: 'Backstage Management System'
+    lead: 'Welcome!'
+  article:
+    title: 'Article Title'
+    lang: 'Language'
+    category: 'Category'
+    categoryState:
+      unselect: 'unselect'
+      selected: 'selected'
+    abstract:
+      name: 'Abstract'
+      placeholder: 'please input the abstract of article'
+      submit: 'Done'
+    abstractState:
+      unedit: 'unedit'
+      edited: 'edited'
+    submit: 'Submit'
+  articleList:
+    title: 'Article List'
+    keyword: 'Keyword'
+    keywordPlaceholder: 'pleace input keyword'
+    reset: 'reset'
+    search: 'search'
+    table:
+      title: 'Article Title'
+      sortBy:
+        name: 'sort'
+        asc: 'Newest'
+        desc: 'Oldest'
+      category: 'category'
+      lang: 'language'
+      author: 'author'
+      createdBy: 'created by '
+  deleteArticle:
+    title: 'Article Batches Delete'
+    keyword: 'Keyword'
+    keywordPlaceholder: 'pleace input keyword'
+    reset: 'Reset'
+    search: 'Search'
+    submit: 'Batches Delete'
+    table:
+      title: 'Article Title'
+      createdAt: 'Creation Date'
+    deleteModal:
+      title: 'Delete Article'
+      msg: 'Are you sure delete the selected articles?'
+      ok: 'Done'
+      cancel: 'Cancel'
+  category:
+    title: 'Category Management'
+    baseInfo: 'Basic Information'
+    name: 'Category Name'
+    parent: 'Parent Class'
+    comment: 'Category Comment'
+    list: 'Category List'
+    action: 'Action'
+    default: 'Default'
+    parentPlaceholder: 'place select the parent class'
+    commentPlaceholder: 'pleace input the comment of category'
+    deleteModal:
+      title: 'Delete Category'
+      msg: 'Are you sure delete this category?'
+      ok: 'Done'
+      cancel: 'Cancel'
+    reset: 'Reset'
+    create: 'Create'
+    update: 'Update'
+    back: 'Back to Creation'
+  upload:
+    title: 'File Upload Management'
+    selectFile: 'Choose File'
+    preview: 'Preview'
+    crop: 'Crop'
+    submit: 'Upload'
+    list: 'File List'
+    category: 'Category'
+    path: 'Path'
+    deleteModal:
+      title: 'Delete File'
+      msg: 'Are you sure delete this file?'
+  page:
+    title: 'Page Management'
+    baseInfo: 'Basic Information'
+    config: 'Page Configuration'
+    name: 'Page Name'
+    reset: 'Reset'
+    back: 'Back to Create'
+    create: 'Create'
+    update: 'Update'
+    action: 'Action'
+    deleteModal:
+      title: 'Delete Page'
+      msg: 'Are you sure delete this page?'
+    message:
+      createSuccess: 'Page created successfully!'
+      createFailed: 'Page created failed！'
+      updateSuccess: 'Page updated successfully!'
+      updateFailed: 'Page updated failed！'
+  user:
+    title: 'User Management'
+    submit: 'Create'
+    username: 'Username'
+    password: 'Password'
+    createdAt: 'Creation Date'
+    action: 'Action'
+    ok: 'Done'
+    cancel: 'Cancel'
+    create: 'Create'
+    update: 'Update'
+    reset: 'Reset'
+    createTitle: 'Create User'
+    updateTitle: 'Update User'
+    deleteTitle: 'Delete User'
+    deleteMsg: 'Are you sure delete this user?'
+    message:
+      createSuccess: 'User created successfully!'
+      createFailed: 'User created failed！'
+      updateSuccess: 'User updated successfully!'
+      updateFailed: 'User updated failed！'

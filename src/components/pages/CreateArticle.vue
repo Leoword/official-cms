@@ -18,7 +18,7 @@ export default {
 				title: '',
 				language: '',
 				abstract: '',
-				content: ''
+				text: ''
 			},
 			category: {
 				list: [],
@@ -37,7 +37,7 @@ export default {
 	methods: {
 		createArticle(language) {
 			this.article.language = language;
-			this.article.content = this.$refs.editor.getCode();
+			this.article.text = this.$refs.editor.getCode();
 
 			if (this.articleId) {
 				this.$api.language.create(this.articleId, this.article).then(() => {
@@ -52,7 +52,7 @@ export default {
 		getCategoryList() {
 			this.$api.category.getList().then(res => {
 				this.category.list = res.data.map(category => {
-					return { text: category.name, value: category.hash };
+					return { text: category.name, value: category.id };
 				});
 			});
 		},

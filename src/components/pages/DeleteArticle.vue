@@ -61,8 +61,8 @@
 			:per-page="perPage"
 			:fields="[
 				{ key: 'checkbox', label: '' },
-				{ key: 'title', label: '文章标题', sortable: true },
-				{ key: 'createdAt', label: '发表时间', sortable: true }
+				{ key: 'title', label: $t('content.deleteArticle.table.title'), sortable: true },
+				{ key: 'createdAt', label: $t('content.deleteArticle.table.createdAt'), sortable: true }
 			]"
 			@sort-changed="toggleNone"
 			>
@@ -72,12 +72,6 @@
 					:indeterminate="indeterminate"
 					@change="toggleAll"
 				></b-form-checkbox>
-			</template>
-			<template slot="HEAD_title">
-				{{$t('content.deleteArticle.table.title')}}
-			</template>
-			<template slot="HEAD_createdAt">
-				{{$t('content.deleteArticle.table.createdAt')}}
 			</template>
 			<template slot="checkbox" slot-scope="data">
 				<b-form-checkbox
@@ -89,7 +83,7 @@
 				{{ data.item.title }}
 			</template>
 			<template slot="createdAt" slot-scope="data">
-				{{ data.item.createdAt }}
+				{{ format(data.item.createdAt) }}
 			</template>
 		</b-table>
 	</b-container>

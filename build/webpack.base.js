@@ -49,7 +49,11 @@ module.exports = {
 			{
 				test: /\.less$/,
 				loader: ExtractTextPlugin.extract(['css-loader', 'less-loader'])
-			}
+			},
+			{
+				test:/\.yaml$/,
+				loader: 'json-loader!yaml-loader'
+			},
 		]
 	},
 	resolve: {

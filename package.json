@@ -33,6 +33,7 @@
     "font-awesome": "^4.7.0",
     "github-markdown-css": "^3.0.1",
     "html-webpack-plugin": "^3.2.0",
+    "json-loader": "^0.5.7",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "markdown-it": "^8.4.2",
@@ -45,9 +46,11 @@
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.10",
     "vue2-org-tree": "^1.1.1",
+    "vuex": "^3.1.0",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.2.1",
-    "webpack-merge": "^4.2.1"
+    "webpack-merge": "^4.2.1",
+    "yaml-loader": "^0.5.0"
   }
 }

@@ -1,8 +1,8 @@
 <template>
 	<b-container fluid>
 		<b-jumbotron 
-			:header="$t('content.welcome.header')"
-			:lead="$t('content.welcome.lead')" 
+			:header="$t('content.home.header')"
+			:lead="$t('content.home.lead')" 
 		/>
 	</b-container>
 </template>
