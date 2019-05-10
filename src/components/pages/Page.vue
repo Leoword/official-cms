@@ -155,6 +155,8 @@ export default {
 		},
 		getPageById(id) {
 			this.createState = false;
+			this.success.create = false;
+			this.error.create = false;
 			return this.$api.page.get(id).then(res => {
 				this.page.id = res.data.id;
 				this.page.name = res.data.name;
@@ -189,6 +191,8 @@ export default {
 		},
 		back() {
 			this.createState = true;
+			this.success.update = false;
+			this.error.update = false;
 			this.reset();
 		}
 	}

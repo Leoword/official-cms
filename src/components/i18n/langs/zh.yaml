@@ -5,6 +5,7 @@ login:
   reset: '重置'
   lang: '切换语言'
   submit: '登录'
+  errorMsg: '登录失败!'
 navigation: 
   title: 'Or-Change后台管理系统'
   lang: 
@@ -40,9 +41,6 @@ content:
     title: '文章标题'
     lang: '语言'
     category: '分类'
-    categoryState:
-      unselect: '未选择'
-      selected: '已选择'
     abstract:
       name: '摘要'
       placeholder: '请输入文章摘要'

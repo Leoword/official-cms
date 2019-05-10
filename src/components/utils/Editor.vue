@@ -34,12 +34,6 @@
 			<b-col cols="4">
 				<b-row>
 					<b-col cols="auto">
-						<b-badge 
-							v-if="selectedState === 0"
-							variant="warning">{{$t('content.article.categoryState.unselect')}}</b-badge>
-						<b-badge 
-							v-else
-							variant="success">{{$t('content.article.categoryState.selected')}}</b-badge>
 						<b-dropdown 
 							:text="$t('content.article.category')" 
 							variant="link"
@@ -158,12 +152,6 @@ export default {
 				return 0;
 			} 
 			return 1;
-		},
-		selectedState() {
-			if(this.article.category) {
-				return 1;
-			}
-			return 0;
 		}
 	},
 	watch: {

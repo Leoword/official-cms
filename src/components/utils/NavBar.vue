@@ -17,7 +17,7 @@
 					>{{ $t(`navigation.lang.${lang}`) }}</b-dropdown-item>
 				</b-nav-item-dropdown>
 				<b-nav-item-dropdown :text="$t('navigation.user.name')" right>
-					<b-dropdown-item href="#">{{ $t('navigation.user.exit') }}</b-dropdown-item>
+					<b-dropdown-item @click="logout">{{ $t('navigation.user.exit') }}</b-dropdown-item>
 				</b-nav-item-dropdown>
 			</b-navbar-nav>
 		</b-collapse>
@@ -31,6 +31,14 @@ export default {
 		return {
 			langs: ['zh', 'en']
 		};
+	},
+	methods: {
+		logout() {
+			this.$api.user.logout().then(() => {
+				this.$store.commit('loginState', {id: null, username: ''});
+				this.$router.push({path: '/login'});
+			});
+		}
 	}
 };
 </script>

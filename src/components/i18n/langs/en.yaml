@@ -5,6 +5,7 @@ login:
   reset: 'Reset'
   lang: 'Switch'
   submit: 'Login'
+  errorMsg: 'Login Failed！'
 navigation:
   title: 'Or-Change Backstage Management System'
   lang: 
@@ -40,9 +41,6 @@ content:
     title: 'Article Title'
     lang: 'Language'
     category: 'Category'
-    categoryState:
-      unselect: 'unselect'
-      selected: 'selected'
     abstract:
       name: 'Abstract'
       placeholder: 'please input the abstract of article'

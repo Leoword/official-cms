@@ -22,6 +22,7 @@ import Page from '../components/pages/Page.vue';
 import User from '../components/pages/User.vue';
 
 import store from '../store';
+import http from '../api';
 
 function auth() {
 	if(store.state.user.id && store.state.user.username) {
@@ -29,7 +30,14 @@ function auth() {
 	}
 
 	return false;
-	// return true;
+}
+
+function isLogin() {
+	return http.user.getSession().then(res => {
+		store.commit('loginState', {id: res.data.id, username: res.data.username});
+	}).catch(e => {
+		console.log(e)
+	});
 }
 
 const routes = [
@@ -90,7 +98,9 @@ router.beforeEach((to, from, next) => {
 	if(to.path === '/login') {
 		auth() ? next({path: '/'}) : next();
 	} else {
-		auth() ? next() : next({ path: '/login' });
+		isLogin().then(() => {
+			auth() ? next() : next({ path: '/login' });
+		});
 	}
 });
 

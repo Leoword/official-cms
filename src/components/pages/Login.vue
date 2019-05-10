@@ -25,6 +25,9 @@
 		</b-form-group>
 		<b-row>
 			<b-col>
+				<span v-if="error" class="pull-left text-danger">
+					{{$t('login.errorMsg')}}
+				</span>
 			</b-col>
 			<b-col class="ml-auto" cols="auto">
 				<b-btn size="sm" variant="link" @click="switchLang">{{$t('login.lang')}}</b-btn>
@@ -47,7 +50,8 @@ export default {
 				id: null,
 				username: '',
 				password: ''
-			}
+			},
+			error: false
 		};
 	},
 	methods: {
@@ -57,8 +61,15 @@ export default {
 			this.user.password = '';
 		},
 		login() {
-			this.$store.commit('loginState', {id: 1, username: this.user.username});
-			this.$router.push({path: '/'});
+			this.$api.user.login(this.user).then(res => {
+				if(res.data === 'OK') {
+					this.$router.push({path: '/'});
+				}
+			}).catch(e => {
+				if(e) {
+					this.error = true;
+				}
+			});
 		},
 		switchLang() {
 			this.$i18n.locale = (this.$i18n.locale === 'zh' ? 'en' : 'zh' );

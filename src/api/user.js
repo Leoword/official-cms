@@ -19,5 +19,14 @@ export default {
 
 	delete(id) {
 		return instance.delete(`/user/${id}`);
+	},
+	login(user) {
+		return instance.post('/login', user);
+	},
+	getSession() {
+		return instance.get('/session');
+	},
+	logout() {
+		return instance.delete('/logout');
 	}
 };
