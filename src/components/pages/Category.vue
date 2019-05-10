@@ -156,32 +156,36 @@ export default {
 		this.getCategoryList();
 	},
 	methods: {
-		contructTree(parent = null) {
-			const tree = [];
+		contructTree() {
+			const tree = {};
+			const result = [];
 
 			this.categoryList.forEach(category => {
-				if (!category.parent) {
-					tree.push({
-						id: category.id, label: category.name,
-						children: []
-					});
-
-					return;
-				}
-
-				if (category.parent === parent) {
-					const info = {
-						id: category.id, label: category.name,
-						children: []
-					};
-
-					info.children = this.contructTree(category.id);
-
-					tree.push(info);
+				tree[category.id] = {
+					id: category.id,
+					label: category.name,
+					children: [],
+					parent: category.parent
 				}
 			});
 
-			return tree;
+			for (let key in tree) {
+				const { parent } = tree[key];
+
+				if (parent) {
+					tree[parent].children.push(tree[key]);
+				}
+			}
+
+			for (let key in tree) {
+				const { parent } = tree[key];
+
+				if (!parent) {
+					result.push(tree[key]);
+				}
+			}
+
+			return result;
 		},
 		renderContent(h, data) {
 			return data.label;

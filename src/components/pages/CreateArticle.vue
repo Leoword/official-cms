@@ -18,18 +18,14 @@ export default {
 				title: '',
 				language: '',
 				abstract: '',
-				text: ''
+				text: '',
+				author: this.$store.state.user.username
 			},
 			category: {
 				list: [],
 				selected: []
 			}
 		};
-	},
-	computed: {
-		articleId() {
-			return this.$route.query.articleId;
-		}
 	},
 	mounted() {
 		this.getCategoryList();
@@ -39,15 +35,9 @@ export default {
 			this.article.language = language;
 			this.article.text = this.$refs.editor.getCode();
 
-			if (this.articleId) {
-				this.$api.language.create(this.articleId, this.article).then(() => {
-					this.createClassification(this.articleId);
-				});
-			} else {
-				this.$api.article.create(this.article).then(res => {
-					this.createClassification(res.data.hash);
-				});
-			}
+			this.$api.article.create(this.article).then(res => {
+				this.createClassification(res.data.articleId);
+			});
 		},
 		getCategoryList() {
 			this.$api.category.getList().then(res => {

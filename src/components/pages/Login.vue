@@ -62,13 +62,9 @@ export default {
 		},
 		login() {
 			this.$api.user.login(this.user).then(res => {
-				if(res.data === 'OK') {
-					this.$router.push({path: '/'});
-				}
+				this.$router.push({path: '/'});
 			}).catch(e => {
-				if(e) {
-					this.error = true;
-				}
+				this.error = true;
 			});
 		},
 		switchLang() {

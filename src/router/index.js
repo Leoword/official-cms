@@ -25,7 +25,7 @@ import store from '../store';
 import http from '../api';
 
 function auth() {
-	if(store.state.user.id && store.state.user.username) {
+	if(store.state.user.username) {
 		return true;
 	}
 

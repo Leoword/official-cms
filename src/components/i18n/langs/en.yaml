@@ -130,6 +130,7 @@ content:
       createFailed: 'Page created failed！'
       updateSuccess: 'Page updated successfully!'
       updateFailed: 'Page updated failed！'
+    synchronize: 'Sychronize Page'
   user:
     title: 'User Management'
     submit: 'Create'

@@ -55,8 +55,8 @@
 					style="width: 23%" no-body class="float-left mr-3 my-3"
 					:img-src="`${file.url}`" img-top>
 					<b-card-text>
-						<p class="px-2 mb-0">{{$t('content.upload.category')}}{{file.type}}</p>
-						<p class="px-2 mb-0">{{$t('content.upload.path')}} {{file.url}}</p>
+						<p class="px-2 mb-0">{{$t('content.upload.category')}}: {{file.type}}</p>
+						<p class="px-2 mb-0">{{$t('content.upload.path')}}: {{file.url}}</p>
 						<p class="px-2 mb-0 text-right">
 							<i 
 								v-b-modal.delete-item

@@ -101,20 +101,20 @@
 				slot-scope="data"
 				>
 				<div>
-					<b-link :to="`/article/${data.item.hash}`">{{ data.item.title }}</b-link>
-					<span class="ml-5">{{$t('content.articleList.table.createdBy')}} {{ format(data.item.creaetdAt) }}</span>
-					<span class="ml-5">
+					<b-link :to="`/article/${data.item.articleId}?lang=${data.item.lang}`">{{ data.item.title }}</b-link>
+					<span class="ml-5">{{$t('content.articleList.table.createdBy')}} {{ format(data.item.createdAt) }}</span>
+					<!-- <span class="ml-5">
 						<i 
 							class="fa fa-trash text-danger" style="font-size: 25px"
 							aria-hidden="true"
-							@click="deleteArticle(data.item.hash)"
+							@click="deleteArticle(data.item.articleId)"
 						></i>
 						<i 
 							class="fa fa-plus-circle text-primary ml-5" style="font-size: 25px"
 							aria-hidden="true"
-							@click="createArticle(data.item.articleId)"
+							@click="createCommit(data.item.articleId)"
 						></i>
-					</span>
+					</span> -->
 				</div>
 			</template>
 		</b-table>
@@ -164,7 +164,7 @@ export default {
 			this.filterByKey = null;
 		},
 		getArticleList() {
-			this.$api.article.getList().then(res => {
+			this.$api.article.query().then(res => {
 				this.articleList = res.data;
 			});
 		},
@@ -190,12 +190,12 @@ export default {
 				});
 			});
 		},
-		deleteArticle(id) {
-			this.$api.language.delete(id).then(() => this.getArticleList());
-		},
-		createArticle(articleId) {
-			this.$router.push(`/article/add?articleId=${articleId}`);
-		}
+		// deleteArticle(id) {
+		// 	this.$api.article.delete(id).then(() => this.getArticleList());
+		// },
+		// createCommit(articleId) {
+		// 	this.$router.push(`/article/add?articleId=${articleId}`);
+		// }
 	},
 	mounted() {
 		this.getArticleList();

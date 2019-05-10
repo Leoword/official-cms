@@ -1,7 +1,7 @@
 <template>
 	<editor
 		:article="article" @upload-article="updateRetrive"
-		:category="category" :content="article.content" ref="editor"
+		:category="category" :content="article.text" ref="editor"
 	></editor>
 </template>
 
@@ -14,54 +14,62 @@ export default {
 		return {
 			article: {
 				title: '',
-				language: '',
+				lang: '',
 				abstract: '',
-				content: ''
+				text: '',
+				author: this.$store.state.user.username
 			},
 			category: {
 				origin: [],
 				list: [],
 				selected: []
-			},
-			articleId: null
+			}
 		};
 	},
 	computed: {
-		languageId() {
+		articleId() {
 			return this.$route.params.id;
+		},
+		lang() {
+			return this.$route.query.lang;
 		}
 	},
 	methods: {
 		getRetrive() {
-			this.$api.language.get(this.languageId).then(res => {
+			this.$api.article.get(this.articleId, {
+				query: {
+					lang: this.lang
+				}
+			}).then(res => {
 				this.article = res.data;
-				this.articleId = res.data.hash;
 
 				this.getClassification();
 			});
 		},
 		updateRetrive() {
-			const content = this.$refs.editor.getCode();
-			this.$api.language.update(this.languageId, Object.assign({},
-				this.article, { content })).then(() => {
+			this.article.text = this.$refs.editor.getCode();
+			this.$api.article.createCommit({
+				articleId: this.articleId,
+				commit: this.article
+			}).then(() => {
 				this.updateClassification();
 				this.getRetrive();
 			}).then(() => {
-				// this.$router.push('/article');
+				this.$router.push('/article');
 			});
 		},
 		getCategoryList() {
 			this.$api.category.getList().then(res => {
-				this.category.List = res.data.map(category => {
-					return {text: category.name, value: category.hash}
+				this.category.list = res.data.map(category => {
+					return {text: category.name, value: category.id}
 				});
 			});
 		},
 		getClassification() {
 			this.$api.article.getClassificationList(this.articleId).then(res => {
-				res.data.forEach(category => {
-					this.category.selected.push(category.id);
-					this.category.origin.push(category.id);
+				res.data.forEach(id => {
+					this.category.selected.push(id);
+					this.category.origin.push(id);
 				})
 			})
 		},
@@ -87,7 +95,7 @@ export default {
 	},
 	mounted() {
 		this.getRetrive();
-		// this.getCategoryList();
+		this.getCategoryList();
 	}
 };
 </script>

@@ -51,6 +51,9 @@
 			@ok="deletePage(deleteId)"
 		></delete-modal>
 		<b-row class="mt-3">
+			<b-col>
+				<b-btn size="sm" variant="success" target="_blank" :href="`${websiteURL}/api/reset`">{{$t('content.page.synchronize')}}</b-btn>
+			</b-col>
 			<b-col class="ml-auto" cols="auto">
 				<b-pagination
 					v-model="curPage"
@@ -94,6 +97,8 @@
 
 <script>
 import DeleteModal from '../utils/DeleteModal.vue';
+import config from '../../../config.json';
+
 export default {
 	components: { DeleteModal },
 	data() {
@@ -115,7 +120,8 @@ export default {
 				config: '{ "title": "", "description": "", "router": "/", "body": [{ "name": "", "options": "", "classList": ""}]}'
 			},
 			pageList: [],
-			deleteId: null
+			deleteId: null,
+			websiteURL: config.websiteURL
 		};
 	},
 	mounted() {

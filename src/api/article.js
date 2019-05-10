@@ -1,11 +1,20 @@
 import { instance } from './apiConfig.js';
 
-export const article = {
+export default {
 	create(article) {
 		return instance.post('/article', article);
 	},
-	getList() {
+	query() {
 		return instance.get('/article');
+	},
+	get(articleId) {
+		return instance.get(`/article/${articleId}`);
+	},
+	createCommit({articleId, commit}) {
+		return instance.post(	`/article/${articleId}/commit`, commit);
+	},
+	delete(articleId) {
+		return instance.delete(`/article/${articleId}`);
 	},
 	createClassification({articleId, categoryId}) {
 		return instance.post(`/article/${articleId}/category/${categoryId}`);
@@ -15,23 +24,5 @@ export const article = {
 	},
 	getClassificationList(articleId) {
 		return instance.get(`/article/${articleId}/category`);
-	}
-};
-
-export const language = {
-	create({articleId, language}) {
-		return instance.post(	`/article/${articleId}`, language);
-	},
-	get(id) {
-		return instance.get(`/article/${id}`);
-	},
-	getList() {
-		return instance.get('/article/language');
-	},
-	update(id, language) {
-		return instance.put(`/article/${id}`, language);
-	},
-	delete(id) {
-		return instance.delete(`/article/${id}`);
 	}
 };
