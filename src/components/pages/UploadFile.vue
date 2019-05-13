@@ -34,14 +34,10 @@
 				<b-button class="my-2 pull-right" variant="primary" size="sm" @click="onSubmit">{{$t('content.upload.submit')}}</b-button>
 			</div>
 		</div>
-		<div class="ml-3 float-right" style="width: 56%">
+		<div class="ml-3 float-right" style="width: 58%">
 			<h4>{{$t('content.upload.list')}}</h4>
 			<div v-if="list.length !== 0">
 				<div class="clearfix">
-					<div class="float-left">
-						{{list.lengt}}
-						<b-form-select size="sm" v-model="selected" :options="typeList"></b-form-select>
-					</div>
 					<div class="float-right">
 						<b-pagination
 							v-model="currentPage"
@@ -51,22 +47,41 @@
 						></b-pagination>
 					</div>
 				</div>
-				<b-card v-for="(file, index) in renderFileList" :key="index"
-					style="width: 23%" no-body class="float-left mr-3 my-3"
-					:img-src="`${file.url}`" img-top>
-					<b-card-text>
-						<p class="px-2 mb-0">{{$t('content.upload.category')}}: {{file.type}}</p>
-						<p class="px-2 mb-0">{{$t('content.upload.path')}}: {{file.url}}</p>
-						<p class="px-2 mb-0 text-right">
-							<i 
-								v-b-modal.delete-item
-								class="fa fa-trash fa-lg text-danger"
-								aria-hidden="true"
-								@click="deleteFile(file.id)"
-							></i>
-						</p>
-					</b-card-text>
-				</b-card>
+				<b-table 
+					ref="files"
+					small
+					hover
+					:items="list"
+					:current-page="currentPage"
+					:per-page="perPage"
+					:filter="filterFile"
+					:fields="[
+						{ key: 'url', label: $t('content.upload.path')},
+						{ key: 'type', label: $t('content.upload.category')},
+						{ key: 'action', label: $t('content.upload.action')}
+					]"
+				>
+					<template slot="url" slot-scope="data">
+						<span
+							:id="`show-file-${data.item.id}`"
+						>{{data.item.url}}</span>
+
+						<b-popover :target="`show-file-${data.item.id}`" placement="right" triggers="hover focus">
+							<span v-if="isShow(data.item.type)">
+								<b-img :src="`${data.item.url}`" fluid></b-img>
+							</span>
+							<span v-else>{{$t('content.upload.notDisplay')}}</span>
+						</b-popover>
+					</template>
+					<template slot="action" slot-scope="data">
+						<i 
+							v-b-modal.delete-item
+							class="fa fa-trash fa-lg text-danger"
+							aria-hidden="true"
+							@click="deleteFile(data.item.id)"
+						></i>
+					</template>
+				</b-table>
 			</div>
 		</div>
 		<delete-modal
@@ -94,7 +109,7 @@ export default {
 				size: 1,
 				outputType: 'png'
 			},
-			perPage: 8,
+			perPage: 20,
 			currentPage: 1,
 			selected: null,
 			delete: null
@@ -131,7 +146,7 @@ export default {
 			} else {
 				return this.list.filter(file => file.type === this.selected);
 			}
-		}
+		},
 	},
 	methods: {
 		getBlob() {
@@ -156,15 +171,20 @@ export default {
 			const formdata = new FormData();
 
 			formdata.append('type', type);
-
 			if (this.option.img) {
 				this.$refs.cropper.getCropBlob((data) => { 
 					formdata.append('file', data);
-					this.$api.file.create(formdata).then(() => this.getFileList());
+					this.$api.file.create(formdata).then(() => {
+						this.getFileList();
+						this.reset();
+					});
 				});
 			} else {
 				formdata.append('file', this.file);
-				this.$api.file.create(formdata).then(() => this.getFileList());
+				this.$api.file.create(formdata).then(() => {
+						this.getFileList();
+						this.reset();
+					});
 			}
 
 		},
@@ -186,6 +206,21 @@ export default {
 				this.$refs.cropper.startCrop();
 				this.$refs.cropper.goAutoCrop();
 			}
+		},
+		reset() {
+			this.file = null;
+			if (this.option.img) {
+				this.$refs.cropper.clearCrop();
+				this.option.img = '';
+			}
+		},
+		isShow(type) {
+			const reg = new RegExp('^image\/');
+			if(reg.test(type)) {
+				return true;
+			}
+
+			return false;
 		}
 	},
 	mounted() {

@@ -109,6 +109,8 @@ content:
     list: 'File List'
     category: 'Category'
     path: 'Path'
+    action: 'Action'
+    notDisplay: 'Non-picture file, unable to display'
     deleteModal:
       title: 'Delete File'
       msg: 'Are you sure delete this file?'

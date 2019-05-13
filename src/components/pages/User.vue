@@ -82,7 +82,6 @@
 			:per-page="perPage"
 			:fields="[
 				{ key: 'username', label: $t('content.user.username')},
-				{ key: 'createdAt', label: $t('content.user.createdAt'), sortable: true},
 				{ key: 'action', label: $t('content.user.action')}
 			]"
 		>
@@ -92,9 +91,6 @@
 					variant="link"
 					@click="getUserById(data.item.id)"
 				>{{ data.item.username }}</b-btn>
-			</template>
-			<template slot="createdAt" slot-scope="data">
-				{{ format(data.item.createdAt) }}
 			</template>
 			<template slot="action" slot-scope="data">
 				<i 

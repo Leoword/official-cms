@@ -53,8 +53,7 @@
 		<b-row class="mt-3">
 			<b-col>
 				<b-btn size="sm" variant="success" target="_blank" :href="`${websiteURL}/api/reset`">{{$t('content.page.synchronize')}}</b-btn>
-			</b-col>
-			<b-col class="ml-auto" cols="auto">
+			</b-col>			<b-col class="ml-auto" cols="auto">
 				<b-pagination
 					v-model="curPage"
 					size="sm"
@@ -200,7 +199,7 @@ export default {
 			this.success.update = false;
 			this.error.update = false;
 			this.reset();
-		}
+		},
 	}
 };
 </script>

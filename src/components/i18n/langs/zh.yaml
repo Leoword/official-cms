@@ -110,6 +110,8 @@ content:
       list: '文件列表'
       category: '类别'
       path: '路径'
+      action: '操作'
+      notDisplay: '非图片文件，无法显示'
       deleteModal:
         title: '删除文件'
         msg: '确认删除该文件?'
