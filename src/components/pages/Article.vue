@@ -101,7 +101,11 @@
 				slot-scope="data"
 				>
 				<div>
-					<b-link :to="`/article/${data.item.articleId}?lang=${data.item.lang}`">{{ data.item.title }}</b-link>
+					<b-link 
+						:to="`/article/${data.item.articleId}?lang=${data.item.lang}`"
+						style="display:inline-block;width:10rem;"
+						:title="data.item.title"
+					>{{ data.item.title }}</b-link>
 					<span class="ml-5">{{$t('content.articleList.table.createdBy')}} {{ format(data.item.createdAt) }}</span>
 					<!-- <span class="ml-5">
 						<i 

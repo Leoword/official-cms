@@ -37,9 +37,7 @@ export default {
 	methods: {
 		getRetrive() {
 			this.$api.article.get(this.articleId, {
-				query: {
-					lang: this.lang
-				}
+				lang: this.lang
 			}).then(res => {
 				this.article = res.data;
 

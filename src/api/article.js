@@ -7,8 +7,10 @@ export default {
 	query() {
 		return instance.get('/article');
 	},
-	get(articleId) {
-		return instance.get(`/article/${articleId}`);
+	get(articleId, params) {
+		return instance.get(`/article/${articleId}`, {
+			params
+		});
 	},
 	createCommit({articleId, commit}) {
 		return instance.post(	`/article/${articleId}/commit`, commit);

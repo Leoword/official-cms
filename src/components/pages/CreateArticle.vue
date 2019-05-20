@@ -16,7 +16,7 @@ export default {
 		return {
 			article: {
 				title: '',
-				language: '',
+				language: 'zh',
 				abstract: '',
 				text: '',
 				author: this.$store.state.user.username

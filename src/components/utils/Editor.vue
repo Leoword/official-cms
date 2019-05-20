@@ -25,7 +25,7 @@
 				>
 					<b-form-select
 						id="language"
-						v-model="languageOptions.selected"
+						v-model="article.lang"
 						size="sm"
 						:options="languageOptions.list"
 					></b-form-select>
@@ -141,14 +141,13 @@ export default {
 			htmlCache: '',
 			abstract: '',
 			languageOptions: {
-				list: [],
-				selected: 'Chinese'
+				list: []
 			},
 		};
 	},
 	computed: {
 		editState() {
-			if(this.article.abstract.length === 0) {
+			if(!this.article.abstract && this.article.abstract.length === 0) {
 				return 0;
 			} 
 			return 1;
@@ -206,12 +205,12 @@ export default {
 		setLanguageOption() {
 			lang.getAllNames().forEach(name => {
 				this.languageOptions.list.push({
-					text: name, value: name
+					text: name, value: lang.getCode(name)
 				});
 			});
 		},
 		upload() {
-			this.$emit('upload-article', this.languageOptions.selected);
+			this.$emit('upload-article');
 		},
 	}
 };
