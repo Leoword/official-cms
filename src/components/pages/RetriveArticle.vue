@@ -19,6 +19,7 @@ export default {
 				text: '',
 				author: this.$store.state.user.username
 			},
+			origin: null,
 			category: {
 				origin: [],
 				list: [],
@@ -40,21 +41,33 @@ export default {
 				lang: this.lang
 			}).then(res => {
 				this.article = res.data;
+				this.origin = Object.assign({}, this.article);
 
 				this.getClassification();
 			});
 		},
 		updateRetrive() {
 			this.article.text = this.$refs.editor.getCode();
-			this.$api.article.createCommit({
-				articleId: this.articleId,
-				commit: this.article
-			}).then(() => {
+
+			if (JSON.stringify({
+				title: this.article.title, abstract: this.article.abstract,
+				text: this.article.text
+			}) === JSON.stringify({
+				title: this.origin.title, abstract: this.origin.abstract,
+				text: this.origin.text
+			})) {
 				this.updateClassification();
-				this.getRetrive();
-			}).then(() => {
 				this.$router.push('/article');
-			});
+			} else {
+				this.$api.article.createCommit({
+					articleId: this.articleId,
+					commit: this.article
+				}).then(() => {
+					this.updateClassification();
+				}).then(() => {
+					this.$router.push('/article');
+				});
+			}
 		},
 		getCategoryList() {
 			this.$api.category.getList().then(res => {

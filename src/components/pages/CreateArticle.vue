@@ -16,7 +16,7 @@ export default {
 		return {
 			article: {
 				title: '',
-				language: 'zh',
+				lang: 'zh',
 				abstract: '',
 				text: '',
 				author: this.$store.state.user.username
@@ -31,8 +31,7 @@ export default {
 		this.getCategoryList();
 	},
 	methods: {
-		createArticle(language) {
-			this.article.language = language;
+		createArticle() {
 			this.article.text = this.$refs.editor.getCode();
 
 			this.$api.article.create(this.article).then(res => {

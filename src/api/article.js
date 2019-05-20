@@ -15,8 +15,12 @@ export default {
 	createCommit({articleId, commit}) {
 		return instance.post(	`/article/${articleId}/commit`, commit);
 	},
-	delete(articleId) {
-		return instance.delete(`/article/${articleId}`);
+	delete(articleId, lang) {
+		return instance.delete(`/article/${articleId}`, {
+			params: {
+				lang
+			}
+		});
 	},
 	createClassification({articleId, categoryId}) {
 		return instance.post(`/article/${articleId}/category/${categoryId}`);

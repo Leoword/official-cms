@@ -76,7 +76,10 @@
 			<template slot="checkbox" slot-scope="data">
 				<b-form-checkbox
 					v-model="itemSelected"
-					:value="data.item.articleId"
+					:value="{
+						articleId: data.item.articleId,
+						lang: data.item.lang
+					}"
 					/>
 			</template>
 			<template slot="title" slot-scope="data">
@@ -131,7 +134,10 @@ export default {
 			this.itemSelected = [];
 			if(checked) {
 				articles.computedItems.forEach(item => {
-					this.itemSelected.push(item.articleId);
+					this.itemSelected.push({
+						articleId: item.articleId,
+						lang: item.lang
+					});
 				});
 			}
 			this.allSelected = true;
@@ -149,7 +155,8 @@ export default {
 		},
 		deleteArticle() {
 			Promise.all(this.itemSelected.map(item => {
-				return this.$api.article.delete(item);
+				console.log(item);
+				return this.$api.article.delete(item.articleId, item.lang);
 			})).then(() => {
 				this.$router.push('/article');
 			});
