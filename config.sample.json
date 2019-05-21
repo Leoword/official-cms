@@ -1,5 +1,6 @@
 {
 	"baseURL": "/api" ,
 	"proxy": "http://192.168.31.234:8081",
-	"websiteURL": "http://localhost:3000"
+	"resetURL": "http://localhost:3000",
+	"publicPath": "/admin/"
 }

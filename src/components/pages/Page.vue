@@ -52,7 +52,7 @@
 		></delete-modal>
 		<b-row class="mt-3">
 			<b-col>
-				<b-btn size="sm" variant="success" target="_blank" :href="`${websiteURL}/api/reset`">{{$t('content.page.synchronize')}}</b-btn>
+				<b-btn size="sm" variant="success" target="_blank" :href="resetURL">{{$t('content.page.synchronize')}}</b-btn>
 			</b-col>			<b-col class="ml-auto" cols="auto">
 				<b-pagination
 					v-model="curPage"
@@ -120,7 +120,7 @@ export default {
 			},
 			pageList: [],
 			deleteId: null,
-			websiteURL: config.websiteURL
+			resetURL: config.resetURL
 		};
 	},
 	mounted() {

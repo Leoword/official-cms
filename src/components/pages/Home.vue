@@ -7,15 +7,15 @@
 					{
 						name: $t('sidebar.article.title'),
 						children: [
-							{name: $t('sidebar.article.list'), url: '/#/article'},
-							{name: $t('sidebar.article.create'), url: '/#/article/add'},
-							{name: $t('sidebar.article.batch'), url: '/#/article/batch'}
+							{name: $t('sidebar.article.list'), url: '#/article'},
+							{name: $t('sidebar.article.create'), url: '#/article/add'},
+							{name: $t('sidebar.article.batch'), url: '#/article/batch'}
 						]
 					},
-					{ name: $t('sidebar.category.title'), url: '/#/category'},
-					{ name: $t('sidebar.upload.title'), url: '/#/upload'},
-					{ name: $t('sidebar.page.title'), url: '/#/page'},
-					{ name: $t('sidebar.user.title'), url: '/#/user'}
+					{ name: $t('sidebar.category.title'), url: '#/category'},
+					{ name: $t('sidebar.upload.title'), url: '#/upload'},
+					{ name: $t('sidebar.page.title'), url: '#/page'},
+					{ name: $t('sidebar.user.title'), url: '#/user'}
 				]"
 			></side-bar>
 		</div>
