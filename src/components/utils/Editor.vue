@@ -203,11 +203,22 @@ export default {
 			this.$refs.dropdown.hide(true);
 		},
 		setLanguageOption() {
-			lang.getAllNames().forEach(name => {
-				this.languageOptions.list.push({
-					text: name, value: lang.getCode(name)
-				});
-			});
+			// lang.getAllNames().forEach(name => {
+			// 	this.languageOptions.list.push({
+			// 		text: name, value: lang.getCode(name)
+			// 	});
+			// });
+
+			this.languageOptions.list = [
+				{
+					text: 'Chinese',
+					value: lang.getCode('Chinese')
+				},
+				{
+					text: 'English',
+					value: lang.getCode('English')
+				}
+			]
 		},
 		upload() {
 			this.$emit('upload-article');

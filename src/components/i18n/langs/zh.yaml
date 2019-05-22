@@ -60,8 +60,8 @@ content:
       title: '文章标题'
       sortBy:
         name: '排序方式'
-        asc: '创建时间升序排列'
-        desc: '创建时间降序排列'
+        asc: '创建时间升序'
+        desc: '创建时间降序'
       category: '分类'
       lang: '语言'
       author: '作者'

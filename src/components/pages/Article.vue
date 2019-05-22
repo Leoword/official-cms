@@ -19,14 +19,14 @@
 			</b-col>
 			<b-col cols="3">
 				<b-btn size="sm" @click="reset">{{$t('content.articleList.reset')}}</b-btn>
-				<b-btn size="sm" type="submit" variant="primary">{{$t('content.articleList.search')}}</b-btn>
+				<!-- <b-btn size="sm" type="submit" variant="primary" @click="searchByKey">{{$t('content.articleList.search')}}</b-btn> -->
 			</b-col>
 			<b-col cols="auto" class="ml-auto">
 				<b-pagination
 					v-model="curPage"
 					size="sm"
 					:per-page="perPage"
-					:total-rows="rows"
+					:total-rows="renderArticleList.length"
 					aria-controls="article"
 					class="pull-right"
 					algin="right"
@@ -37,11 +37,11 @@
 		<b-table
 			id="article"
 			hover
-			:items="articleList"
+			:items="renderArticleList"
 			:current-page="curPage"
 			:fields="[
-				{key: 'title',	label: '文章标题'},
-				{key: 'label'}
+				{key: 'title', label: '文章标题'},
+				{key: 'label'}	
 			]"
 			:per-page="perPage"
 		>
@@ -57,7 +57,7 @@
 					>
 					<b-form-group>
 						<b-form-checkbox-group v-model="authorOptions.selected"
-							:options="authorOptions.list">
+							:options="authorList">
 						</b-form-checkbox-group>
 					</b-form-group>
 				</b-dropdown>
@@ -73,7 +73,7 @@
 						</b-form-checkbox-group>
 					</b-form-group>
 				</b-dropdown>
-				<b-dropdown 
+				<!-- <b-dropdown 
 					size="sm"
 					:text="$t('content.articleList.table.category')" 
 					variant="link"
@@ -84,15 +84,22 @@
 							:options="categoryOptions.list">
 						</b-form-checkbox-group>
 					</b-form-group>
-				</b-dropdown>
+				</b-dropdown> -->
 				<b-dropdown 
 					size="sm"
 					:text="$t('content.articleList.table.sortBy.name')"
 					variant="link"
 					style="float: right"
 					>
-					<b-dropdown-item>{{$t('content.articleList.table.sortBy.asc')}}</b-dropdown-item>
-					<b-dropdown-item>{{$t('content.articleList.table.sortBy.desc')}}</b-dropdown-item>
+					<b-form-group>
+						<b-form-radio-group 
+							v-model="sortOptions.selected"
+							style="font-size:14px;"
+						>
+							<b-form-radio value="Ascending">{{$t('content.articleList.table.sortBy.asc')}}</b-form-radio>
+							<b-form-radio value="Descending">{{$t('content.articleList.table.sortBy.desc')}}</b-form-radio>
+						</b-form-radio-group>
+					</b-form-group>
 				</b-dropdown>
 			</template>
 
@@ -139,7 +146,7 @@ export default {
 			filterByKey: '',
 			sortOptions: {
 				list: [],
-				selected: []
+				selected: "Descending"
 			},
 			categoryOptions: {
 				list: [],
@@ -156,11 +163,44 @@ export default {
 		};
 	},
 	computed: {
-		rows() {
-			return this.articleList.length;
-		},
 		renderArticleList() {
-			return this.articleList;
+			let clone = this.articleList.slice(0);
+
+			if (this.filterByKey) {
+				clone = clone.filter((article) => {
+					return article.title.match(this.filterByKey) || article.abstract.match(this.filterByKey);
+				});
+			}
+
+			({
+				Ascending() {
+					clone.sort(function(a, b) {
+						return Date.parse(a.createdAt) - Date.parse(b.createdAt);
+					});
+				},
+				Descending() {
+					clone.sort(function(a, b) {
+						return Date.parse(b.createdAt) - Date.parse(a.createdAt);
+					});
+				}
+			})[this.sortOptions.selected]()
+
+			return clone.filter(article => {
+				return this.languageOptions.selected.includes(article.lang) && this.authorOptions.selected.includes(article.author);
+			});
+		},
+		authorList() {
+			let authorList = [];
+
+			this.articleList.forEach((article) => {
+				if (authorList.indexOf(article.author) === -1) {
+					authorList.push(article.author);
+				}
+			});
+
+			this.authorOptions.selected = authorList;
+
+			return authorList;
 		}
 	},
 	methods: {
@@ -173,13 +213,25 @@ export default {
 			});
 		},
 		setLanguageOption() {
-			lang.getAllNames().forEach(name => {
-				this.languageOptions.list.push({
-					text: name, value: lang.getCode(name)
-				});
+			// lang.getAllNames().forEach(name => {
+			// 	this.languageOptions.list.push({
+			// 		text: name, value: lang.getCode(name)
+			// 	});
 
-				this.languageOptions.selected.push(lang.getCode(name));
-			});
+			// 	this.languageOptions.selected.push(lang.getCode(name));
+			// });
+
+			this.languageOptions.list = [
+				{
+					text: 'Chinese',
+					value: lang.getCode('Chinese')
+				},
+				{
+					text: 'English',
+					value: lang.getCode('English')
+				}
+			]
+			this.languageOptions.selected.push(lang.getCode('Chinese'), lang.getCode('English'));
 		},
 		getCategoryList() {
 			this.$api.category.getList().then(res => {
@@ -193,13 +245,7 @@ export default {
 					this.categoryOptions.selected.push(id);
 				});
 			});
-		},
-		// deleteArticle(id) {
-		// 	this.$api.article.delete(id).then(() => this.getArticleList());
-		// },
-		// createCommit(articleId) {
-		// 	this.$router.push(`/article/add?articleId=${articleId}`);
-		// }
+		}
 	},
 	mounted() {
 		this.getArticleList();
@@ -212,10 +258,13 @@ export default {
 <style lang="less">
 #article-list {
 	.b-dropdown {
-		width: 15%;
+		width: 20%;
 	}
 	.dropdown-menu {
 		padding: 10px 15px;
+	}
+	.table thead th {
+		width: 50%;
 	}
 }
 </style>
