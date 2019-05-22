@@ -6,16 +6,17 @@
 				:items="[
 					{
 						name: $t('sidebar.article.title'),
+						icon: 'fas fa-newspaper',
 						children: [
-							{name: $t('sidebar.article.list'), url: '#/article'},
-							{name: $t('sidebar.article.create'), url: '#/article/add'},
-							{name: $t('sidebar.article.batch'), url: '#/article/batch'}
+							{name: $t('sidebar.article.list'), url: '#/article', tab: 'a'},
+							{name: $t('sidebar.article.create'), url: '#/article/add', tab: 'b'},
+							{name: $t('sidebar.article.batch'), url: '#/article/batch', tab: 'c'}
 						]
 					},
-					{ name: $t('sidebar.category.title'), url: '#/category'},
-					{ name: $t('sidebar.upload.title'), url: '#/upload'},
-					{ name: $t('sidebar.page.title'), url: '#/page'},
-					{ name: $t('sidebar.user.title'), url: '#/user'}
+					{ name: $t('sidebar.category.title'), url: '#/category', icon: 'fas fa-th'},
+					{ name: $t('sidebar.upload.title'), url: '#/upload', icon: 'fas fa-file-image'},
+					{ name: $t('sidebar.page.title'), url: '#/page', icon: 'fas fa-window-restore'},
+					{ name: $t('sidebar.user.title'), url: '#/user', icon: 'fas fa-user'}
 				]"
 			></side-bar>
 		</div>
@@ -43,7 +44,9 @@ export default {
 	top: @navbar-height;
 	bottom: 0;
 	position: fixed;
-	background-color: #f0f0f0;
+	// background-color: #fff;
+	border-right: 1px solid #D5DCDF;
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
 }
 
 #content {
@@ -53,5 +56,6 @@ export default {
 	bottom: 0;
 	left: @sidebar-width;
 	overflow-y: auto;
+	background-color: #EEF5F9;
 }
 </style>

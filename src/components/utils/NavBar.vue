@@ -4,7 +4,11 @@
 		type="dark"
 		variant="dark"
 	>
-		<b-navbar-brand href="#/">{{ $t('navigation.title') }}</b-navbar-brand>
+		<img src="../../assets/logo.png">
+		<b-navbar-brand 
+			href="#/" 
+			class="pl-3"
+		>{{ $t('navigation.title') }}</b-navbar-brand>
 		<b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 		<b-collapse id="nav-collapse" is-nav>
 			<b-navbar-nav class="ml-auto">

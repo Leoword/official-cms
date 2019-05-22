@@ -1,28 +1,50 @@
 <template>
-	<div>
-			<div v-for="(item, index) in items" :key="index">
-				<b-btn
-					v-if="item.children"
-					block
-					class="parent p-3 border-left border-bottom"
-					variant="light"
-				>{{item.name}}</b-btn>
-				<b-list-group>
-					<b-list-group-item
-						v-for="(child, index) in item.children"
-						:key="`items[${index}]`"
-						class="text-center"
-						:href="child.url"
-					>{{child.name}}</b-list-group-item>
-				</b-list-group>
+	<div class="utils-sidebar">
+		<b-card
+			v-for="(item, index) in items" 
+			:key="index"
+			class="border-0"
+			no-body
+		>
+			<b-button
+				v-if="item.children"
+				block 
+				v-b-toggle.accordion
+				variant="white"
+				class="rounded-0 text-left py-3"
+			><i :class="`${item.icon} mr-2`"></i>{{ item.name }}</b-button>
+			<b-collapse 
+				v-if="item.children"
+				id="accordion"
+			>
 				<b-button
-					v-if="!item.children"
-					class="parent p-3 border-left border-bottom"
+					v-for="(child, index) in item.children"
+					:key="`items[${index}]`"
+					:href="child.url"
+					:class="{
+						'rounded-0': true,
+						'active': child.tab === activeBtn
+						}"
+					variant="white"
 					block
-					variant="light"
-					:href="item.url"
-				>{{ item.name }}</b-button>
-			</div>
+					@click.passive="changeActiveBtn(child.tab)"
+				>{{ child.name }}</b-button>
+			</b-collapse>
+
+			<b-button
+				v-if="!item.children"
+				block
+				variant="white"
+				:href="item.url"
+				:class="{
+					'rounded-0': true, 
+					'text-left': true, 
+					'py-3': true,
+					'active': index === activeBtn
+				}"
+				@click.passive="changeActiveBtn(index)"
+			><i :class="`${item.icon} mr-2`"></i>{{ item.name }}</b-button>
+		</b-card>
 	</div>
 </template>
 
@@ -34,13 +56,44 @@ export default {
 			type: Array,
 			default: () => []
 		}
+	},
+	data() {
+		return {
+			activeBtn: -1
+		}
+	},
+	methods: {
+		changeActiveBtn(index) {
+			this.activeBtn = index;
+		}
 	}
 };
 </script>
 
 <style lang="less">
-.parent {
-	background-color: #f0f0f0
+.utils-sidebar {
+	.btn {
+		color: #959595;
+		&:hover {
+			background-color: #007BFF;
+			color: #fff;
+			.fas {
+				color: #fff;
+			}
+		}
+		&.active {
+			background-color: #007BFF;
+			color: #fff;
+			.fas {
+				color: #fff;
+			}
+		}
+		.fas {
+			color: #000;
+			width: 25px;
+			font-size: 18px;
+		}
+	}
 }
 </style>
 

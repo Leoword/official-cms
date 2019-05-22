@@ -30,7 +30,6 @@
 			</b-col>
 			<b-col cols="4">
 				<b-button size="sm" @click="reset">{{$t('content.deleteArticle.reset')}}</b-button>
-				<b-button size="sm" type="submit" variant="primary">{{$t('content.deleteArticle.search')}}</b-button>
 				<b-button
 					v-b-modal.modal-center 
 					size="sm"
@@ -45,7 +44,7 @@
 					size="sm"
 					class="m-0"
 					:per-page="perPage"
-					:total-rows="rows"
+					:total-rows="renderArticleList.length"
 					aria-controls="article"
 					align="right"
 					@change="toggleNone"
@@ -56,7 +55,7 @@
 			ref="articles"
 			small
 			hover
-			:items="articleList"
+			:items="renderArticleList"
 			:current-page="curPage"
 			:per-page="perPage"
 			:fields="[
@@ -107,11 +106,17 @@ export default {
 		};
 	},
 	computed: {
-		rows() {
-			return this.articleList.length;
-		},
 		selectedItems() {
 			return this.itemSelected.length;
+		},
+		renderArticleList() {
+			if (this.filterByKey) {
+				return this.articleList.filter((article) => {
+					return article.title.match(this.filterByKey);
+				});
+			}
+
+			return this.articleList;
 		}
 	},
 	watch: {
